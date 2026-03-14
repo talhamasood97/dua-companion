@@ -1,35 +1,7 @@
 {
-  "buildCommand": "next build",
-  "outputDirectory": ".next",
-  "framework": "nextjs",
-  "regions": ["iad1", "sin1", "lhr1"],
-  "headers": [
-    {
-      "source": "/fonts/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/_next/static/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/sitemap.xml",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, stale-while-revalidate=3600"
-        }
-      ]
+  "functions": {
+    "app/api/**": {
+      "regions": ["iad1"]
     }
-  ]
+  }
 }
