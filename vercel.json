@@ -1,7 +1,3 @@
 {
-  "functions": {
-    "app/api/**": {
-      "regions": ["iad1"]
-    }
-  }
+  "framework": "nextjs"
 }
