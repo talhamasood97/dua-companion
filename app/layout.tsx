@@ -1,0 +1,118 @@
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { Toaster } from "react-hot-toast";
+import { GoogleAnalytics } from "@/components/layout/GoogleAnalytics";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/utils";
+import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    template: `%s | ${SITE_NAME}`,
+    default: `${SITE_NAME} – Authentic Islamic Duas with Arabic & Sources`,
+  },
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "dua",
+    "duas",
+    "islamic prayer",
+    "supplication",
+    "arabic dua",
+    "dua before sleeping",
+    "dua for anxiety",
+    "sahih dua",
+    "muslim dua",
+    "islamic supplication",
+    "hisn al muslim",
+    "quran dua",
+    "hadith dua",
+  ],
+  authors: [{ name: "Dua Companion" }],
+  creator: "Dua Companion",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} – Authentic Islamic Duas`,
+    description: SITE_DESCRIPTION,
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} – Authentic Islamic Duas`,
+    description: SITE_DESCRIPTION,
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fdf8f0" },
+    { media: "(prefers-color-scheme: dark)", color: "#022c22" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="min-h-screen flex flex-col">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <Toaster
+            position="bottom-center"
+            toastOptions={{
+              className:
+                "!bg-white dark:!bg-emerald-900 !text-stone-800 dark:!text-stone-100 !shadow-lg !rounded-xl !text-sm",
+              duration: 2500,
+            }}
+          />
+        </ThemeProvider>
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
+      </body>
+    </html>
+  );
+}

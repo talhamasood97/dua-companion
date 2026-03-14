@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=false --import-alias=\"@/*\" --no-git)",
+      "Bash(node --version)",
+      "Bash(npm --version)",
+      "Bash(source ~/.zshrc)",
+      "Bash(source ~/.bash_profile)",
+      "Bash(source ~/.bashrc)",
+      "Bash(mdfind -name \"node\" -onlyin /usr)",
+      "Bash(mdfind -name \"node\" -onlyin /Applications)"
+    ]
+  }
+}
