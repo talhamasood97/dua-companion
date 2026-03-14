@@ -35,7 +35,7 @@ export function AuthenticityBadge({ grade, showLabel = false, size = "sm" }: Pro
           ? "sahih"
           : grade === "HASAN"
           ? "hasan"
-          : grade === "QUDSI"
+          : grade === "QURAN"
           ? "qudsi"
           : "daif"
       }
