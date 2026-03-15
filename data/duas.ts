@@ -567,7 +567,7 @@ export const DUAS: Dua[] = [
     translation:
       "No harm will come to you. It will be a purification, if Allah wills.",
     source_book: "Sahih al-Bukhari",
-    hadith_number: "3616",
+    hadith_number: "5656",
     authenticity_grade: "SAHIH",
     category: "health",
     emotion_tags: ["sad", "hopeful"],
@@ -643,37 +643,17 @@ export const DUAS: Dua[] = [
     slug: "dua-breaking-fast",
     title: "Dua for Breaking the Fast (Iftar)",
     arabic_text:
-      "اللَّهُمَّ لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ",
+      "ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ",
     transliteration:
-      "Allahumma laka sumtu wa bika amantu wa 'alayka tawakkaltu wa 'ala rizqika aftartu",
+      "Dhahaba al-zama'u wabtallatil-'uruqu wa thabatal-ajru in sha'Allah",
     translation:
-      "O Allah, for You I fasted, and in You I believe, and upon You I rely, and with Your provision I break my fast.",
+      "The thirst is gone, the veins are moistened, and the reward is confirmed, if Allah wills.",
     source_book: "Sunan Abu Dawud",
-    hadith_number: "2358",
-    authenticity_grade: "HASAN",
+    hadith_number: "2357",
+    authenticity_grade: "SAHIH",
     category: "worship",
     emotion_tags: ["grateful"],
     situation_tags: ["iftar", "ramadan", "fasting", "breaking-fast"],
-    scholar_verified: true,
-    featured: false,
-    daily_dua_eligible: false,
-  },
-  {
-    id: 34,
-    slug: "dua-entering-ramadan",
-    title: "Dua for Welcoming Ramadan",
-    arabic_text:
-      "اللَّهُمَّ بَارِكْ لَنَا فِي رَجَبٍ وَشَعْبَانَ وَبَلِّغْنَا رَمَضَانَ",
-    transliteration:
-      "Allahumma barik lana fi Rajaba wa Sha'bana wa ballighna Ramadan",
-    translation:
-      "O Allah, bless us in Rajab and Sha'ban, and allow us to reach Ramadan.",
-    source_book: "Musnad Ahmad",
-    hadith_number: "2346",
-    authenticity_grade: "HASAN",
-    category: "worship",
-    emotion_tags: ["hopeful", "grateful"],
-    situation_tags: ["ramadan", "rajab", "shaban", "months"],
     scholar_verified: true,
     featured: false,
     daily_dua_eligible: false,
@@ -1941,26 +1921,6 @@ export const DUAS: Dua[] = [
     category: "health",
     emotion_tags: ["hopeful", "grateful"],
     situation_tags: ["wellbeing", "health", "pardon", "daily", "morning"],
-    scholar_verified: true,
-    featured: false,
-    daily_dua_eligible: true,
-  },
-  {
-    id: 99,
-    slug: "dua-for-those-who-show-kindness",
-    title: "Dua Asking Allah to Reward Those Who Show Kindness",
-    arabic_text:
-      "اللَّهُمَّ أَعِنِّي عَلَى شُكْرِكَ وَذِكْرِكَ وَحُسْنِ عِبَادَتِكَ",
-    transliteration:
-      "Allahumma a'inni 'ala shukrika wa dhikrika wa husni 'ibadatik",
-    translation:
-      "O Allah, help me to be grateful to You, to remember You, and to worship You in the best manner.",
-    source_book: "Sunan Abu Dawud",
-    hadith_number: "1522",
-    authenticity_grade: "SAHIH",
-    category: "worship",
-    emotion_tags: ["grateful", "hopeful"],
-    situation_tags: ["gratitude", "dhikr", "worship", "daily", "zikr"],
     scholar_verified: true,
     featured: false,
     daily_dua_eligible: true,
