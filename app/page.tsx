@@ -8,6 +8,9 @@ import { DailyDuaBanner } from "@/components/home/DailyDuaBanner";
 import { getFeaturedDuas, getDailyDua } from "@/lib/duas";
 import { SITE_NAME, SITE_DESCRIPTION } from "@/lib/utils";
 
+// Revalidate every hour so the Daily Dua banner rotates correctly
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: `${SITE_NAME} – Authentic Islamic Duas with Arabic, Transliteration & Sources`,
   description: SITE_DESCRIPTION,

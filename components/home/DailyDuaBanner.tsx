@@ -44,7 +44,7 @@ export function DailyDuaBanner({ dua }: { dua: Dua }) {
                   dir="rtl"
                   lang="ar"
                 >
-                  {dua.arabic_text.split(" ").slice(0, 6).join(" ")}…
+                  {(dua.arabic_text || "").split(" ").slice(0, 6).join(" ")}…
                 </p>
               </div>
 
