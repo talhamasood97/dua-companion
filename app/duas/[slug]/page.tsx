@@ -110,30 +110,32 @@ export default async function DuaPage({ params }: Props) {
         <article className="bg-white dark:bg-emerald-950/40 rounded-3xl border border-stone-100 dark:border-emerald-900 shadow-sm overflow-hidden">
           {/* Header */}
           <div className="px-6 sm:px-10 pt-8 pb-6 border-b border-stone-50 dark:border-emerald-900">
-            <div className="flex items-start justify-between gap-4 flex-wrap mb-4">
+            {/* Title row — stacks on mobile, side-by-side on sm+ */}
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-4">
               <h1 className="text-2xl sm:text-3xl font-bold text-stone-800 dark:text-stone-100 leading-tight">
                 {dua.title}
               </h1>
-              <AuthenticityBadge grade={dua.authenticity_grade} size="lg" />
+              <div className="flex-shrink-0">
+                <AuthenticityBadge grade={dua.authenticity_grade} size="lg" />
+              </div>
             </div>
 
-            {/* Source reference */}
-            <div className="flex items-center gap-2 text-sm text-stone-500 dark:text-stone-400">
-              <BookOpen className="w-4 h-4 flex-shrink-0" />
-              <span className="font-medium">{dua.source_book}</span>
-              {dua.hadith_number && (
-                <>
-                  <span className="text-stone-300 dark:text-stone-600">·</span>
-                  <span>{dua.hadith_number}</span>
-                </>
-              )}
+            {/* Source reference — groups so it wraps cleanly */}
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-stone-500 dark:text-stone-400">
+              <div className="flex items-center gap-1.5">
+                <BookOpen className="w-4 h-4 flex-shrink-0" />
+                <span className="font-medium">{dua.source_book}</span>
+                {dua.hadith_number && (
+                  <>
+                    <span className="text-stone-300 dark:text-stone-600">·</span>
+                    <span>{dua.hadith_number}</span>
+                  </>
+                )}
+              </div>
               {dua.scholar_verified && (
-                <>
-                  <span className="text-stone-300 dark:text-stone-600">·</span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-medium">
-                    ✓ Scholar Verified
-                  </span>
-                </>
+                <span className="text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
+                  ✓ Scholar Verified
+                </span>
               )}
             </div>
           </div>

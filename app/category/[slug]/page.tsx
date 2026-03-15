@@ -59,13 +59,13 @@ export default async function CategoryPage({ params }: Props) {
         </p>
       </div>
 
-      {/* All categories nav */}
-      <div className="flex flex-wrap gap-2 mb-10">
+      {/* All categories nav — scrollable on mobile, wraps on desktop */}
+      <div className="flex gap-2 mb-10 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none">
         {CATEGORIES.map((c) => (
           <Link
             key={c.slug}
             href={`/category/${c.slug}`}
-            className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
+            className={`text-xs px-3 py-1.5 rounded-full border transition-all whitespace-nowrap flex-shrink-0 sm:flex-shrink ${
               c.slug === params.slug
                 ? "bg-emerald-700 text-white border-emerald-700"
                 : "border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400 hover:border-emerald-300 dark:hover:border-emerald-700"

@@ -10,7 +10,7 @@ export function DuaCard({ dua }: { dua: Dua }) {
   return (
     <Link
       href={`/duas/${dua.slug}`}
-      className="dua-card group block bg-white dark:bg-emerald-950/40 rounded-2xl p-6 border border-stone-100 dark:border-emerald-900 hover:border-emerald-200 dark:hover:border-emerald-700 shadow-sm"
+      className="dua-card group flex flex-col bg-white dark:bg-emerald-950/40 rounded-2xl p-5 sm:p-6 border border-stone-100 dark:border-emerald-900 hover:border-emerald-200 dark:hover:border-emerald-700 shadow-sm"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3 mb-4">
@@ -22,7 +22,7 @@ export function DuaCard({ dua }: { dua: Dua }) {
 
       {/* Arabic */}
       <p
-        className="arabic text-right text-arabic-sm text-stone-700 dark:text-stone-200 mb-4 leading-loose"
+        className="arabic text-right text-2xl text-stone-700 dark:text-stone-200 mb-4 leading-loose line-clamp-3"
         dir="rtl"
         lang="ar"
       >
@@ -30,22 +30,24 @@ export function DuaCard({ dua }: { dua: Dua }) {
       </p>
 
       {/* Translation preview */}
-      <p className="text-sm text-stone-500 dark:text-stone-400 line-clamp-2 mb-4 leading-relaxed">
+      <p className="text-sm text-stone-500 dark:text-stone-400 line-clamp-2 mb-4 leading-relaxed min-h-[2.5rem]">
         {dua.translation}
       </p>
 
       {/* Footer */}
-      <div className="flex items-center justify-between gap-2 flex-wrap">
-        <div className="flex items-center gap-1.5 text-xs text-stone-400 dark:text-stone-500">
-          <BookOpen className="w-3.5 h-3.5" />
-          <span>{dua.source_book}</span>
+      <div className="flex items-center justify-between gap-2 mt-auto">
+        <div className="flex items-center gap-1 text-xs text-stone-400 dark:text-stone-500 min-w-0">
+          <BookOpen className="w-3.5 h-3.5 flex-shrink-0" />
+          <span className="truncate">{dua.source_book}</span>
           {dua.hadith_number && (
-            <span className="text-stone-300 dark:text-stone-600">·</span>
+            <>
+              <span className="text-stone-300 dark:text-stone-600 flex-shrink-0">·</span>
+              <span className="flex-shrink-0">{dua.hadith_number}</span>
+            </>
           )}
-          {dua.hadith_number && <span>{dua.hadith_number}</span>}
         </div>
         {category && (
-          <span className={`text-xs font-medium ${category.color}`}>
+          <span className={`text-xs font-medium flex-shrink-0 ${category.color}`}>
             {category.icon} {category.title}
           </span>
         )}
