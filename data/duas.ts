@@ -2015,20 +2015,38 @@ export function searchDuas(query: string): Dua[] {
   const q = query.toLowerCase().trim();
   if (!q) return [];
 
-  // Build expanded set of terms from synonyms
+  // Build expanded set of terms from synonyms (full-phrase lookup)
   const terms = Array.from(new Set([q, ...(SEARCH_SYNONYMS[q] ?? [])]));
 
-  return DUAS.filter((d) =>
-    terms.some(
-      (t) =>
-        d.title.toLowerCase().includes(t) ||
-        d.translation.toLowerCase().includes(t) ||
-        d.transliteration.toLowerCase().includes(t) ||
-        d.situation_tags.some((tag) => tag.includes(t)) ||
-        d.emotion_tags.some((tag) => tag.includes(t)) ||
-        d.category.includes(t) ||
-        d.source_book.toLowerCase().includes(t)
-    )
+  // Extract meaningful individual words — skip Islamic/search stopwords
+  const STOPWORDS = new Set([
+    "dua", "for", "the", "when", "before", "after", "and",
+    "in", "a", "of", "to", "from", "upon", "with", "at",
+  ]);
+  const words = q.split(/\s+/).filter(
+    (w) => w.length > 2 && !STOPWORDS.has(w)
+  );
+
+  // Expand individual words through synonyms too
+  const expandedWords = Array.from(
+    new Set([...words, ...words.flatMap((w) => SEARCH_SYNONYMS[w] ?? [])])
+  );
+
+  const fieldMatch = (d: Dua, t: string): boolean =>
+    d.title.toLowerCase().includes(t) ||
+    d.translation.toLowerCase().includes(t) ||
+    d.transliteration.toLowerCase().includes(t) ||
+    d.situation_tags.some((tag) => tag.includes(t)) ||
+    d.emotion_tags.some((tag) => tag.includes(t)) ||
+    d.category.includes(t) ||
+    d.source_book.toLowerCase().includes(t);
+
+  return DUAS.filter(
+    (d) =>
+      // 1. Full-phrase / synonym match (original behaviour, zero regressions)
+      terms.some((t) => fieldMatch(d, t)) ||
+      // 2. Word-level match — every meaningful word must appear somewhere
+      (expandedWords.length > 0 && expandedWords.every((w) => fieldMatch(d, w)))
   );
 }
 
