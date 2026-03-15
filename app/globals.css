@@ -140,6 +140,19 @@
   .animate-delay-200 { animation-delay: 200ms; }
   .animate-delay-300 { animation-delay: 300ms; }
   .animate-delay-400 { animation-delay: 400ms; }
+
+  /* Safe area padding for notch/home indicator on iOS */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+/* Mobile bottom bar safe-area support */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .md\:hidden.fixed.bottom-0 {
+    padding-bottom: env(safe-area-inset-bottom);
+    height: calc(64px + env(safe-area-inset-bottom));
+  }
 }
 
 /* Print styles */

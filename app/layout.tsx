@@ -98,8 +98,9 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          {/* pb-20 = clearance for mobile bottom tab bar (md:pb-0 removes it on desktop) */}
+          <main className="flex-1 pb-20 md:pb-0">{children}</main>
+          <div className="hidden md:block"><Footer /></div>
           <Toaster
             position="bottom-center"
             toastOptions={{

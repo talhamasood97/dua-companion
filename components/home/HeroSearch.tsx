@@ -10,9 +10,7 @@ const SUGGESTIONS = [
   "dua entering mosque",
   "dua for forgiveness",
   "dua for parents",
-  "dua for rain",
   "dua when travelling",
-  "dua after wudu",
 ];
 
 export function HeroSearch() {
@@ -45,7 +43,7 @@ export function HeroSearch() {
   );
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-2xl mx-auto px-4 sm:px-0">
       <form onSubmit={handleSubmit}>
         <div
           className={`relative flex items-center bg-white dark:bg-emerald-900/80 rounded-2xl shadow-lg shadow-emerald-100/50 dark:shadow-emerald-950 border transition-all duration-200 ${
@@ -56,29 +54,34 @@ export function HeroSearch() {
         >
           <Search className="absolute left-4 w-5 h-5 text-stone-400 dark:text-stone-500 pointer-events-none" />
           <input
-            type="text"
+            type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => { blurTimerRef.current = setTimeout(() => setFocused(false), 150); }}
             placeholder="Search for a dua…"
-            className="flex-1 bg-transparent pl-12 pr-4 py-4 text-base text-stone-800 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none"
+            className="flex-1 bg-transparent pl-12 pr-2 sm:pr-4 py-4 text-base text-stone-800 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none min-w-0"
             autoComplete="off"
             autoCorrect="off"
             spellCheck="false"
+            enterKeyHint="search"
           />
+          {/* Mobile: icon-only button | Desktop: text button */}
           <button
             type="submit"
-            className="m-1.5 px-5 py-2.5 bg-emerald-700 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl transition-colors"
+            aria-label="Search"
+            className="m-1.5 flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-600 active:bg-emerald-800 text-white font-semibold rounded-xl transition-colors
+              w-11 h-11 sm:w-auto sm:h-auto sm:px-5 sm:py-2.5 flex-shrink-0"
           >
-            Search
+            <Search className="w-4 h-4 sm:hidden" />
+            <span className="hidden sm:inline text-sm">Search</span>
           </button>
         </div>
       </form>
 
       {/* Quick suggestions */}
       <div className="mt-4 flex flex-wrap gap-2 justify-center">
-        {SUGGESTIONS.slice(0, 5).map((s) => (
+        {SUGGESTIONS.map((s) => (
           <button
             key={s}
             onClick={() => handleSuggestion(s)}

@@ -19,19 +19,17 @@ export function EmotionGrid() {
             <Link
               key={emotion.slug}
               href={`/emotion/${emotion.slug}`}
-              className={`group flex flex-col items-center gap-3 p-5 rounded-2xl border border-transparent transition-all duration-200 cursor-pointer animate-fade-in ${emotion.bgColor}`}
+              className={`group flex flex-col items-center gap-2.5 sm:gap-3 p-4 sm:p-5 rounded-2xl border border-transparent transition-all duration-200 cursor-pointer animate-fade-in ${emotion.bgColor}`}
               style={{ animationDelay: `${i * 50}ms` }}
             >
               <span className="text-3xl group-hover:scale-110 transition-transform duration-200">
                 {emotion.icon}
               </span>
               <div className="text-center">
-                <p
-                  className={`font-semibold text-sm ${emotion.color}`}
-                >
+                <p className={`font-semibold text-sm ${emotion.color}`}>
                   {emotion.title}
                 </p>
-                <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5 hidden sm:block line-clamp-1">
+                <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5 line-clamp-1 leading-tight">
                   {emotion.description}
                 </p>
               </div>

@@ -14,22 +14,23 @@ export function CategoryGrid() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.slug}
               href={`/category/${cat.slug}`}
-              className="group flex items-center gap-4 bg-sand-50 dark:bg-emerald-950/60 rounded-2xl px-5 py-4 border border-stone-100 dark:border-emerald-900 hover:border-emerald-200 dark:hover:border-emerald-700 hover:shadow-md hover:shadow-emerald-50 dark:hover:shadow-emerald-950 transition-all duration-200"
+              className="group flex items-center gap-3 sm:gap-4 bg-sand-50 dark:bg-emerald-950/60 rounded-2xl px-4 sm:px-5 py-3.5 sm:py-4 border border-stone-100 dark:border-emerald-900 hover:border-emerald-200 dark:hover:border-emerald-700 hover:shadow-md hover:shadow-emerald-50 dark:hover:shadow-emerald-950 transition-all duration-200 active:scale-[0.98]"
             >
-              <span className="text-2xl flex-shrink-0">{cat.icon}</span>
-              <div>
+              <span className="text-2xl flex-shrink-0 w-9 text-center">{cat.icon}</span>
+              <div className="min-w-0 flex-1">
                 <p className={`font-semibold text-sm ${cat.color} group-hover:underline`}>
                   {cat.title}
                 </p>
-                <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5 hidden sm:block line-clamp-1">
+                <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5 line-clamp-1 leading-tight">
                   {cat.description}
                 </p>
               </div>
+              <span className="text-stone-300 dark:text-stone-600 text-sm flex-shrink-0">›</span>
             </Link>
           ))}
         </div>
