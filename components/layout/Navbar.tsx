@@ -67,7 +67,7 @@ export function Navbar() {
           >
             <BookOpen className="w-5 h-5" />
             <span className="font-semibold tracking-tight text-base sm:text-lg">
-              Dua<span className="text-emerald-600 dark:text-emerald-400">Companion</span>
+              Dua<span className="text-emerald-600 dark:text-emerald-400">Vault</span>
             </span>
           </Link>
 

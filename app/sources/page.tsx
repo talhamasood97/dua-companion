@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Our Sources – Dua Companion",
+  title: "Our Sources – DuaVault",
   description:
-    "All duas on Dua Companion are sourced from Sahih al-Bukhari, Sahih Muslim, Hisn al-Muslim, and other authentic Islamic collections.",
+    "All duas in DuaVault are sourced from Sahih al-Bukhari, Sahih Muslim, Hisn al-Muslim, and other authentic Islamic collections.",
   alternates: { canonical: "/sources" },
 };
 

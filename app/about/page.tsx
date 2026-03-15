@@ -3,9 +3,9 @@ import Link from "next/link";
 import { ShieldCheck, BookOpen, Search, Heart } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About – Dua Companion",
+  title: "About – DuaVault",
   description:
-    "Our mission is to be the world's most trusted Islamic supplication platform, providing authentic duas with verified scholarly sources.",
+    "Our mission is to be the most complete and trusted vault of authentic Islamic supplications, with every dua verified against scholarly sources.",
   alternates: { canonical: "/about" },
 };
 
@@ -28,7 +28,7 @@ const FEATURES = [
   {
     icon: Heart,
     title: "Built for the Ummah",
-    desc: "A spiritual companion designed with peace, clarity, and accessibility for Muslims worldwide.",
+    desc: "A spiritual resource designed with peace, clarity, and accessibility for Muslims worldwide.",
   },
 ];
 
@@ -40,11 +40,11 @@ export default function AboutPage() {
           بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
         </p>
         <h1 className="text-3xl sm:text-4xl font-bold text-stone-800 dark:text-stone-100 mb-4">
-          About Dua Companion
+          About DuaVault
         </h1>
         <p className="text-stone-500 dark:text-stone-400 max-w-xl mx-auto leading-relaxed">
-          Dua Companion exists to be the world's most trusted, accessible, and
-          spiritually grounding Islamic supplication platform.
+          DuaVault exists to be the most complete, trusted, and accessible vault
+          of authentic Islamic supplications — for every Muslim, everywhere.
         </p>
       </div>
 
@@ -59,9 +59,9 @@ export default function AboutPage() {
           are often fragmented, unverified, or poorly formatted.
         </p>
         <p className="text-stone-600 dark:text-stone-300 leading-relaxed">
-          Dua Companion solves this. Every supplication on this platform comes
-          with its Arabic text, transliteration, translation, and full hadith
-          reference — verified against classical Islamic scholarship.
+          DuaVault solves this. Every supplication in this vault comes with its
+          Arabic text, transliteration, translation, and full hadith reference —
+          verified against classical Islamic scholarship.
         </p>
       </div>
 

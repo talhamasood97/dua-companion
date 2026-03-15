@@ -46,7 +46,7 @@ export default function OgImage() {
             marginBottom: 20,
           }}
         >
-          Dua Companion
+          DuaVault
         </div>
 
         {/* Subtitle */}

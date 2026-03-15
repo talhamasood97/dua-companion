@@ -178,10 +178,10 @@ export function getAuthenticityLabel(grade: string): string {
 }
 
 export function formatShareText(title: string, translation: string, source: string): string {
-  return `${title}\n\n"${translation}"\n\n📖 Source: ${source}\n\nLearn more at DuaCompanion.com`;
+  return `${title}\n\n"${translation}"\n\n📖 Source: ${source}\n\nLearn more at DuaVault.com`;
 }
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://duacompanion.com";
-export const SITE_NAME = "Dua Companion";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://duavault.com";
+export const SITE_NAME = "DuaVault";
 export const SITE_DESCRIPTION =
-  "The world's most trusted Islamic supplication platform. Find authentic duas with Arabic text, transliteration, translation, and verified sources from Quran and Hadith.";
+  "The most complete vault of authentic Islamic duas — every supplication with Arabic text, transliteration, translation, and verified sources from Quran and Hadith.";

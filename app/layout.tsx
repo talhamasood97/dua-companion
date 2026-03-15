@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     "quran dua",
     "hadith dua",
   ],
-  authors: [{ name: "Dua Companion" }],
-  creator: "Dua Companion",
+  authors: [{ name: "DuaVault" }],
+  creator: "DuaVault",
   openGraph: {
     type: "website",
     locale: "en_US",

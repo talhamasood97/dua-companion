@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy – Dua Companion",
-  description: "Privacy Policy for Dua Companion.",
+  title: "Privacy Policy – DuaVault",
+  description: "Privacy Policy for DuaVault.",
   robots: { index: false },
 };
 
@@ -14,7 +14,7 @@ export default function PrivacyPage() {
       </h1>
       <div className="prose prose-stone dark:prose-invert max-w-none text-sm leading-relaxed space-y-4 text-stone-600 dark:text-stone-400">
         <p>
-          Dua Companion is a read-only content platform. We do not require
+          DuaVault is a read-only content platform. We do not require
           account registration, and we do not collect personally identifiable
           information.
         </p>

@@ -44,11 +44,11 @@ export function Footer() {
             >
               <BookOpen className="w-5 h-5" />
               <span className="font-semibold text-lg">
-                Dua<span className="text-emerald-600">Companion</span>
+                Dua<span className="text-emerald-600">Vault</span>
               </span>
             </Link>
             <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed">
-              The world's most trusted Islamic supplication platform. Every dua
+              The most complete vault of authentic Islamic supplications. Every dua
               scholar-verified with clear Quran & Hadith sources.
             </p>
             <div className="mt-4 flex flex-wrap gap-1.5">
@@ -95,7 +95,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400 dark:text-stone-600">
           <p>
-            © {new Date().getFullYear()} Dua Companion. Made with{" "}
+            © {new Date().getFullYear()} DuaVault. Made with{" "}
             <Heart className="w-3 h-3 inline text-red-400" /> for the Ummah.
           </p>
           <p>

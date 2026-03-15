@@ -42,9 +42,9 @@ export default async function HomePage() {
             <span className="text-gradient">Verified Sources.</span>
           </h1>
           <p className="text-stone-500 dark:text-stone-400 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-            The world's most trusted Islamic supplication library — every dua
-            with Arabic, transliteration, translation, and authentic Hadith
-            reference.
+            The most complete vault of authentic Islamic supplications — every
+            dua with Arabic text, transliteration, translation, and verified
+            Hadith reference.
           </p>
 
           <HeroSearch />
