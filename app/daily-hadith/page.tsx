@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, ChevronRight, Calendar, CheckCircle } from "lucide-react";
+import { BookOpen, ChevronRight, Calendar, CheckCircle, XCircle } from "lucide-react";
 import { getDailyHadith } from "@/data/hadiths";
 import { SubscribeForm } from "@/components/hadith/SubscribeForm";
 import { SITE_NAME, SITE_URL } from "@/lib/utils";
@@ -25,7 +25,11 @@ const GRADE_COLORS = {
   Hasan: "bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800",
 };
 
-export default function DailyHadithPage() {
+export default function DailyHadithPage({
+  searchParams,
+}: {
+  searchParams: { confirmed?: string };
+}) {
   const hadith = getDailyHadith();
 
   const today = new Date().toLocaleDateString("en-US", {
@@ -60,6 +64,34 @@ export default function DailyHadithPage() {
           <ChevronRight className="w-3 h-3" />
           <span className="text-stone-500">Hadith of the Day</span>
         </nav>
+
+        {/* Confirmation banner */}
+        {searchParams.confirmed === "true" && (
+          <div className="mb-8 flex items-start gap-3 bg-emerald-50 dark:bg-emerald-900/40 border border-emerald-200 dark:border-emerald-800 rounded-2xl px-5 py-4">
+            <CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-semibold text-emerald-800 dark:text-emerald-200 text-sm">
+                You&apos;re confirmed — JazakAllah Khair!
+              </p>
+              <p className="text-sm text-emerald-700 dark:text-emerald-300 mt-0.5">
+                Your subscription is active. Expect your first hadith tomorrow morning, in sha Allah.
+              </p>
+            </div>
+          </div>
+        )}
+        {(searchParams.confirmed === "invalid" || searchParams.confirmed === "error") && (
+          <div className="mb-8 flex items-start gap-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl px-5 py-4">
+            <XCircle className="w-5 h-5 text-red-500 dark:text-red-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-semibold text-red-700 dark:text-red-300 text-sm">
+                This confirmation link is invalid or has expired.
+              </p>
+              <p className="text-sm text-red-600 dark:text-red-400 mt-0.5">
+                Please subscribe again below and we&apos;ll send a fresh confirmation email.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Date header */}
         <div className="flex items-center gap-2 mb-6">
