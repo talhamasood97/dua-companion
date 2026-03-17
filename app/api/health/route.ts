@@ -7,7 +7,6 @@ export async function GET() {
     {
       status: "ok",
       timestamp: new Date().toISOString(),
-      site: process.env.NEXT_PUBLIC_SITE_URL ?? "not set",
     },
     {
       headers: {

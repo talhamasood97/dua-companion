@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { DUAS } from "@/data/duas";
 import { HADITHS } from "@/data/hadiths";
 import { CATEGORIES, EMOTIONS, SITE_URL } from "@/lib/utils";
@@ -20,7 +20,16 @@ function getAllUrls(): string[] {
   return [...staticUrls, ...categoryUrls, ...emotionUrls, ...duaUrls, ...hadithUrls];
 }
 
-export async function POST() {
+export async function POST(req: NextRequest) {
+  // Require admin secret — fail closed if env var is unset
+  const cronSecret = process.env.CRON_SECRET;
+  if (!cronSecret) {
+    return NextResponse.json({ error: "CRON_SECRET not configured" }, { status: 500 });
+  }
+  if (req.headers.get("authorization") !== `Bearer ${cronSecret}`) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const urls = getAllUrls();
   const host = new URL(SITE_URL).hostname;
 
