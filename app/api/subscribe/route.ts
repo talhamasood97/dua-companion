@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createServerClient } from "@/lib/supabase";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 
@@ -10,9 +11,20 @@ const hasSupabase =
 
 const hasResend = !!process.env.RESEND_API_KEY;
 
+/** Escape characters that are special in HTML to prevent injection in email clients. */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
 function buildConfirmationEmail(name: string, token: string): string {
   const confirmUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://duavault.com"}/api/confirm-subscription?token=${token}`;
-  const greeting = name ? `Assalamu Alaikum ${name},` : "Assalamu Alaikum,";
+  const safeName = escapeHtml(name);
+  const greeting = safeName ? `Assalamu Alaikum ${safeName},` : "Assalamu Alaikum,";
 
   return `<!DOCTYPE html>
 <html>
@@ -46,13 +58,29 @@ function buildConfirmationEmail(name: string, token: string): string {
 }
 
 export async function POST(req: NextRequest) {
+  // Rate limit: 3 subscription attempts per IP per 5 minutes
+  const ip = getClientIp(req.headers);
+  const rl = rateLimit(`subscribe:${ip}`, 3, 5 * 60 * 1000);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } }
+    );
+  }
+
   try {
-    const { email, name } = await req.json();
+    const { email, name: rawName } = await req.json();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (!email || typeof email !== "string" || !emailRegex.test(email)) {
       return NextResponse.json({ error: "Valid email required." }, { status: 400 });
     }
+
+    // Sanitise name: printable ASCII/Unicode only, max 50 chars
+    const name =
+      typeof rawName === "string"
+        ? rawName.replace(/[\p{C}]/gu, "").trim().slice(0, 50)
+        : "";
 
     // ── Without Supabase: simple acknowledgement (dev mode) ─────────────────
     if (!hasSupabase) {

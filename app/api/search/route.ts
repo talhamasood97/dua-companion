@@ -1,9 +1,20 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { searchDuas } from "@/lib/duas";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
+  // Rate limit: 30 searches per IP per minute
+  const ip = getClientIp(request.headers);
+  const rl = rateLimit(`search:${ip}`, 30, 60 * 1000);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please slow down." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } }
+    );
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get("q")?.trim();
