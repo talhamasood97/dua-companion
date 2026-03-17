@@ -9,7 +9,17 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get("category");
     const emotion = searchParams.get("emotion");
     const limitParam = searchParams.get("limit");
-    const limit = limitParam ? Math.min(parseInt(limitParam, 10), 100) : undefined;
+    let limit: number | undefined;
+    if (limitParam !== null) {
+      const parsed = parseInt(limitParam, 10);
+      if (!Number.isFinite(parsed) || parsed < 1 || parsed > 100) {
+        return NextResponse.json(
+          { error: "limit must be an integer between 1 and 100" },
+          { status: 400 }
+        );
+      }
+      limit = parsed;
+    }
 
     let duas;
     if (category) {
@@ -20,7 +30,7 @@ export async function GET(request: NextRequest) {
       duas = await getAllDuas();
     }
 
-    if (limit) {
+    if (limit !== undefined) {
       duas = duas.slice(0, limit);
     }
 

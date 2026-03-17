@@ -5,8 +5,96 @@ export const runtime = "nodejs";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://duavault.com";
 
+const hasSupabase =
+  !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !!process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+/** Confirmation landing page — shown when user clicks the email link. */
 export async function GET(req: NextRequest) {
   const token = req.nextUrl.searchParams.get("token");
+
+  if (!token) {
+    return NextResponse.redirect(`${SITE_URL}/daily-hadith?confirmed=invalid`);
+  }
+
+  // Validate the token exists before showing the confirmation page so we don't
+  // render a "Confirm" button for bogus/expired tokens.
+  if (hasSupabase) {
+    try {
+      const db = createServerClient();
+      const { data } = await db
+        .from("hadith_subscribers")
+        .select("id, confirmed")
+        .eq("unsubscribe_token", token)
+        .single();
+
+      if (!data) {
+        return NextResponse.redirect(`${SITE_URL}/daily-hadith?confirmed=invalid`);
+      }
+
+      if (data.confirmed) {
+        return NextResponse.redirect(`${SITE_URL}/daily-hadith?confirmed=true`);
+      }
+    } catch {
+      return NextResponse.redirect(`${SITE_URL}/daily-hadith?confirmed=error`);
+    }
+  }
+
+  // Return a minimal confirmation page — user must click the button to POST.
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Confirm Subscription – DuaVault</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#f9f9f7;font-family:Georgia,serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .card{background:#fff;border-radius:16px;border:1px solid #e7e5e4;max-width:480px;width:100%;padding:40px;text-align:center}
+    .label{font-size:11px;font-weight:700;letter-spacing:2px;color:#d97706;text-transform:uppercase;margin-bottom:12px}
+    h1{font-size:22px;color:#1c1917;line-height:1.3;margin-bottom:16px}
+    p{font-size:15px;color:#57534e;line-height:1.7;margin-bottom:28px}
+    button{background:#059669;color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;padding:14px 28px;cursor:pointer;width:100%}
+    button:hover{background:#047857}
+    .note{font-size:12px;color:#a8a29e;margin-top:16px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p class="label">Daily Hadith – DuaVault</p>
+    <h1>Confirm your subscription</h1>
+    <p>Click the button below to start receiving one authentic hadith every morning.</p>
+    <form method="POST" action="/api/confirm-subscription">
+      <input type="hidden" name="token" value="${token}">
+      <button type="submit">Confirm My Subscription →</button>
+    </form>
+    <p class="note">If you did not sign up for this, simply close this page.</p>
+  </div>
+</body>
+</html>`;
+
+  return new NextResponse(html, {
+    headers: { "Content-Type": "text/html; charset=utf-8" },
+  });
+}
+
+/** Performs the actual confirmation — only reachable via the form POST. */
+export async function POST(req: NextRequest) {
+  let token: string | null = null;
+
+  // Support both form submissions and JSON (for future API use).
+  const contentType = req.headers.get("content-type") ?? "";
+  if (contentType.includes("application/x-www-form-urlencoded")) {
+    const body = await req.text();
+    token = new URLSearchParams(body).get("token");
+  } else {
+    try {
+      const json = await req.json();
+      token = json?.token ?? null;
+    } catch {
+      // fall through — token stays null
+    }
+  }
 
   if (!token) {
     return NextResponse.redirect(`${SITE_URL}/daily-hadith?confirmed=invalid`);
@@ -17,15 +105,16 @@ export async function GET(req: NextRequest) {
     const { error, count } = await db
       .from("hadith_subscribers")
       .update({ confirmed: true }, { count: "exact" })
-      .eq("unsubscribe_token", token);
+      .eq("unsubscribe_token", token)
+      .eq("confirmed", false); // no-op if already confirmed
 
     if (error) {
       return NextResponse.redirect(`${SITE_URL}/daily-hadith?confirmed=error`);
     }
 
-    // count === 0 means token matched no row (invalid or tampered)
     if (count === 0) {
-      return NextResponse.redirect(`${SITE_URL}/daily-hadith?confirmed=invalid`);
+      // Token matched no unconfirmed row — already confirmed or invalid.
+      return NextResponse.redirect(`${SITE_URL}/daily-hadith?confirmed=true`);
     }
 
     return NextResponse.redirect(`${SITE_URL}/daily-hadith?confirmed=true`);

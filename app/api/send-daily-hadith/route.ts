@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { getDailyHadith } from "@/data/hadiths";
 import { createServerClient } from "@/lib/supabase";
+import { escapeHtml } from "@/lib/utils";
 
 export const runtime = "nodejs";
 
@@ -12,7 +13,8 @@ function buildDailyEmail(
   hadith: ReturnType<typeof getDailyHadith>,
   unsubscribeToken: string
 ): string {
-  const greeting = name ? `Assalamu Alaikum ${name},` : "Assalamu Alaikum,";
+  const safeName = escapeHtml(name);
+  const greeting = safeName ? `Assalamu Alaikum ${safeName},` : "Assalamu Alaikum,";
   const hadithUrl = `${SITE_URL}/hadith/${hadith.slug}`;
   const unsubUrl = `${SITE_URL}/api/unsubscribe?token=${unsubscribeToken}`;
   const today = new Date().toLocaleDateString("en-US", {

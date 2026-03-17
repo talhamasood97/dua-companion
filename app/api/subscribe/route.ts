@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createServerClient } from "@/lib/supabase";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
+import { escapeHtml } from "@/lib/utils";
 
 export const runtime = "nodejs";
 
@@ -10,16 +11,6 @@ const hasSupabase =
   !!process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 const hasResend = !!process.env.RESEND_API_KEY;
-
-/** Escape characters that are special in HTML to prevent injection in email clients. */
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#x27;");
-}
 
 function buildConfirmationEmail(name: string, token: string): string {
   const confirmUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://duavault.com"}/api/confirm-subscription?token=${token}`;
@@ -99,7 +90,11 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (existing?.confirmed) {
-      return NextResponse.json({ message: "You are already subscribed!" });
+      // Return the same message as a new subscription to avoid leaking whether
+      // an email address is already confirmed in the database.
+      return NextResponse.json({
+        message: "Please check your inbox to confirm your subscription.",
+      });
     }
 
     // Upsert subscriber (insert or re-send confirmation)

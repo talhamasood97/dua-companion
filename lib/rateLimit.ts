@@ -51,12 +51,26 @@ export function rateLimit(
   return { allowed: true, retryAfterSec: 0 };
 }
 
-/** Extract the first meaningful IP from x-forwarded-for or fall back to a sentinel. */
+/**
+ * Extract the real client IP from request headers.
+ *
+ * Priority:
+ *  1. x-real-ip  — set by Vercel/Nginx infrastructure, not user-controllable.
+ *  2. Rightmost x-forwarded-for value — each proxy appends the IP it received
+ *     from, so the rightmost entry is the last trusted proxy's view of the
+ *     client, making it harder to spoof than the leftmost value.
+ *  3. "unknown" sentinel if neither header is present.
+ */
 export function getClientIp(headers: Headers): string {
+  const realIp = headers.get("x-real-ip");
+  if (realIp) return realIp.trim();
+
   const xff = headers.get("x-forwarded-for");
   if (xff) {
-    const first = xff.split(",")[0].trim();
-    if (first) return first;
+    const parts = xff.split(",");
+    const last = parts[parts.length - 1].trim();
+    if (last) return last;
   }
+
   return "unknown";
 }
