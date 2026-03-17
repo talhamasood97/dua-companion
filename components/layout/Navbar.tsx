@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/daily-dua", label: "Daily Dua" },
-  { href: "/daily-hadith", label: "Hadith of the Day" },
+  { href: "/hadith", label: "Hadiths" },
   { href: "/category/daily-life", label: "Browse" },
   { href: "/search", label: "Search" },
 ];
@@ -19,7 +19,7 @@ const NAV_LINKS = [
 const BOTTOM_NAV = [
   { href: "/", label: "Home", icon: Home },
   { href: "/daily-dua", label: "Dua", icon: Star },
-  { href: "/daily-hadith", label: "Hadith", icon: BookOpen },
+  { href: "/hadith", label: "Hadiths", icon: BookOpen },
   { href: "/search", label: "Search", icon: Search },
   { href: "/saved", label: "Saved", icon: Bookmark },
 ];

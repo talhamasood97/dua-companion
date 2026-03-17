@@ -245,13 +245,21 @@ export default function DailyHadithPage({
           </div>
         </div>
 
-        {/* CTA: full hadith page */}
-        <div className="mt-6 text-center">
+        {/* CTAs */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
           <Link
             href={`/hadith/${hadith.slug}`}
             className="inline-flex items-center gap-1.5 text-sm text-amber-700 dark:text-amber-400 hover:underline font-medium"
           >
-            View full details & archive
+            View full details
+            <ChevronRight className="w-4 h-4" />
+          </Link>
+          <span className="text-stone-300 dark:text-stone-700">·</span>
+          <Link
+            href="/hadith"
+            className="inline-flex items-center gap-1.5 text-sm text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-400 hover:underline font-medium transition-colors"
+          >
+            Browse all hadiths
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>

@@ -3,6 +3,7 @@
 import { Bookmark } from "lucide-react";
 import { useSavedDuas } from "@/hooks/useSavedDuas";
 import { cn } from "@/lib/utils";
+import { trackSaveDua, trackUnsaveDua } from "@/lib/analytics";
 
 interface SaveButtonProps {
   slug: string;
@@ -19,14 +20,10 @@ export function SaveButton({ slug, title, size = "md", className }: SaveButtonPr
     e.preventDefault();
     e.stopPropagation();
     toggle(slug);
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).gtag?.("event", saved ? "unsave_dua" : "save_dua", {
-        dua_slug: slug,
-        dua_title: title,
-      });
-    } catch {
-      // GA not available
+    if (saved) {
+      trackUnsaveDua(slug, title);
+    } else {
+      trackSaveDua(slug, title);
     }
   }
 

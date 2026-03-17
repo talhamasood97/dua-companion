@@ -1,5 +1,5 @@
 /**
- * 30 Authentic Hadiths on Morals & Character
+ * 50 Authentic Hadiths on Morals & Character
  *
  * Sources: Sahih Bukhari, Sahih Muslim, Abu Dawud, Tirmidhi, Ibn Majah
  * All hadiths are graded Sahih or Hasan by classical hadith scholars.
@@ -575,6 +575,387 @@ export const HADITHS: Hadith[] = [
     topic_tags: ["service", "community", "charity", "visiting sick", "kindness"],
     daily_practice:
       "Do one act of service today — share food, check on someone unwell, or lighten someone's burden.",
+  },
+  // ── Hadiths 31–50 ────────────────────────────────────────────────────────────
+  {
+    id: 31,
+    slug: "hadith-on-tawakkul-birds",
+    title: "Trust in Allah Like the Birds Trust Their Lord",
+    arabic:
+      "لَوْ أَنَّكُمْ كُنْتُمْ تَوَكَّلُونَ عَلَى اللَّهِ حَقَّ تَوَكُّلِهِ لَرُزِقْتُمْ كَمَا يُرْزَقُ الطَّيْرُ تَغْدُو خِمَاصًا وَتَرُوحُ بِطَانًا",
+    transliteration:
+      "Law annakum kuntum tawakkalūna 'alallāhi haqqa tawakkulihi, larazaqtum kamā yarzuqut-tayru, taghdū khimāsan wa tarūhu bitānā",
+    translation:
+      "Umar ibn al-Khattab reported: The Messenger of Allah (ﷺ) said, \"If you were to rely upon Allah with the reliance He is due, He would provide for you just as He provides for the birds: they go out in the morning hungry and return in the evening full.\"",
+    narrator: "Umar ibn al-Khattab (RA)",
+    source_book: "Tirmidhi",
+    hadith_number: "2344",
+    grade: "Hasan",
+    topic: "reliance",
+    topic_tags: ["tawakkul", "reliance", "provision", "rizq", "trust"],
+    daily_practice:
+      "Whatever you are anxious about today — take the means, then hand the outcome to Allah completely.",
+  },
+  {
+    id: 32,
+    slug: "hadith-remembrance-living-and-dead",
+    title: "The One Who Remembers Allah Is Truly Alive",
+    arabic:
+      "مَثَلُ الَّذِي يَذْكُرُ رَبَّهُ وَالَّذِي لاَ يَذْكُرُ رَبَّهُ مَثَلُ الْحَىِّ وَالْمَيِّتِ",
+    transliteration:
+      "Mathalul-ladhī yadhkuru rabbahu walladhī lā yadhkuru rabbahu mathalul-hayyi wal-mayyit",
+    translation:
+      "Abu Musa al-Ash'ari reported: The Messenger of Allah (ﷺ) said, \"The example of the one who remembers his Lord and the one who does not remember his Lord is like the living and the dead.\"",
+    narrator: "Abu Musa al-Ash'ari (RA)",
+    source_book: "Sahih Bukhari",
+    hadith_number: "6407",
+    grade: "Sahih",
+    topic: "dhikr",
+    topic_tags: ["dhikr", "remembrance", "worship", "heart", "alive"],
+    daily_practice:
+      "Begin and end your day with dhikr — even ten minutes of SubhanAllah, Alhamdulillah, Allahu Akbar keeps your heart alive.",
+  },
+  {
+    id: 33,
+    slug: "hadith-arrogance-bars-paradise",
+    title: "Even a Seed of Arrogance Bars Entry to Paradise",
+    arabic:
+      "لاَ يَدْخُلُ الْجَنَّةَ مَنْ كَانَ فِي قَلْبِهِ مِثْقَالُ ذَرَّةٍ مِنْ كِبْرٍ",
+    transliteration:
+      "Lā yadkhulul-jannata man kāna fī qalbihi mithqālu dharratin min kibr",
+    translation:
+      "Abdullah ibn Masud reported: The Messenger of Allah (ﷺ) said, \"No one who has the weight of a seed of arrogance in his heart will enter Paradise.\"",
+    narrator: "Abdullah ibn Masud (RA)",
+    source_book: "Sahih Muslim",
+    hadith_number: "91",
+    grade: "Sahih",
+    topic: "humility",
+    topic_tags: ["arrogance", "kibr", "pride", "humility", "paradise"],
+    daily_practice:
+      "Reflect honestly on one area where pride has held you back from being better — and consciously let it go.",
+  },
+  {
+    id: 34,
+    slug: "hadith-good-opinion-of-allah",
+    title: "Allah Is Exactly as His Servant Thinks He Is",
+    arabic:
+      "يَقُولُ اللَّهُ تَعَالَى أَنَا عِنْدَ ظَنِّ عَبْدِي بِي، وَأَنَا مَعَهُ إِذَا ذَكَرَنِي، فَإِنْ ذَكَرَنِي فِي نَفْسِهِ ذَكَرْتُهُ فِي نَفْسِي، وَإِنْ ذَكَرَنِي فِي مَلَإٍ ذَكَرْتُهُ فِي مَلَإٍ خَيْرٍ مِنْهُمْ",
+    transliteration:
+      "Yaqūlullāhu ta'ālā: Anā 'inda dhanni 'abdī bī, wa anā ma'ahu idhā dhakaran. Fa-in dhakaran fī nafsihī dhakartuhū fī nafsī, wa in dhakaran fī mala'in dhakartuhū fī mala'in khayrin minhum",
+    translation:
+      "Abu Huraira reported: The Prophet (ﷺ) said, \"Allah the Almighty says: 'I am as My servant thinks of Me. I am with him when he remembers Me. If he mentions Me within himself, I mention him within Myself. If he mentions Me in an assembly, I mention him in an assembly far better than his.'\"",
+    narrator: "Abu Hurayrah (RA)",
+    source_book: "Sahih Bukhari",
+    hadith_number: "7405",
+    grade: "Sahih",
+    topic: "hope",
+    topic_tags: ["hope", "mercy", "dhikr", "husn al-dhann", "closeness to Allah"],
+    daily_practice:
+      "Replace any negative thought about Allah's mercy with absolute certainty — He is exactly as you believe Him to be. Think well of Him.",
+  },
+  {
+    id: 35,
+    slug: "hadith-fasting-is-for-allah",
+    title: "Fasting Is for Allah and He Alone Rewards It",
+    arabic:
+      "كُلُّ عَمَلِ ابْنِ آدَمَ يُضَاعَفُ الْحَسَنَةُ بِعَشْرِ أَمْثَالِهَا إِلَى سَبْعِمِائَةِ ضِعْفٍ، قَالَ اللَّهُ عَزَّ وَجَلَّ: إِلاَّ الصَّوْمَ فَإِنَّهُ لِي وَأَنَا أَجْزِي بِهِ، يَدَعُ شَهْوَتَهُ وَطَعَامَهُ مِنْ أَجْلِي",
+    transliteration:
+      "Kullu 'amali bni Ādama yudā'af, al-hasanatu bi-'ashri amthālihā ilā sab'imi'ati di'f. Qālallāhu 'azza wa jall: Illā as-sawma, fa-innahu lī wa anā ajzī bih. Yada'u shahwatahu wa ta'āmahu min ajlī",
+    translation:
+      "Abu Huraira reported: The Prophet (ﷺ) said, \"Every deed of the son of Adam is multiplied — a good deed receiving tenfold to seven hundredfold reward — except fasting, for Allah the Almighty says: 'It is for Me and I shall reward it Myself, for he gives up his desire and his food for My sake.'\"",
+    narrator: "Abu Hurayrah (RA)",
+    source_book: "Sahih Bukhari",
+    hadith_number: "1904",
+    grade: "Sahih",
+    topic: "fasting",
+    topic_tags: ["fasting", "sawm", "worship", "sincerity", "ibadah"],
+    daily_practice:
+      "Observe a voluntary fast this week — even one day — and dedicate it purely for Allah, with no worldly intention attached.",
+  },
+  {
+    id: 36,
+    slug: "hadith-visiting-the-sick",
+    title: "Visit the Sick — Angels Pray for You Until Evening",
+    arabic:
+      "مَا مِنْ مُسْلِمٍ يَعُودُ مُسْلِمًا غُدْوَةً إِلاَّ صَلَّى عَلَيْهِ سَبْعُونَ أَلْفَ مَلَكٍ حَتَّى يُمْسِيَ، وَإِنْ عَادَهُ عَشِيَّةً إِلاَّ صَلَّى عَلَيْهِ سَبْعُونَ أَلْفَ مَلَكٍ حَتَّى يُصْبِحَ، وَكَانَ لَهُ خَرِيفٌ فِي الْجَنَّةِ",
+    transliteration:
+      "Mā min muslimin ya'ūdu musliman ghudwatan illā sallā 'alayhi sab'ūna alfa malak hattā yumsī. Wa in 'ādahu 'ashiyyatan illā sallā 'alayhi sab'ūna alfa malak hattā yusbih. Wa kāna lahu kharīfun fil-jannah",
+    translation:
+      "Ali ibn Abi Talib reported: The Prophet (ﷺ) said, \"When a Muslim visits his sick Muslim brother in the morning, seventy thousand angels pray for him until the evening. And if he visits him in the evening, seventy thousand angels pray for him until the morning, and he will have a garden of fruit in Paradise.\"",
+    narrator: "Ali ibn Abi Talib (RA)",
+    source_book: "Sahih Muslim",
+    hadith_number: "2568",
+    grade: "Sahih",
+    topic: "service",
+    topic_tags: ["visiting sick", "service", "angels", "reward", "community"],
+    daily_practice:
+      "Check in on someone who is unwell today — a message, a phone call, or a visit is all it takes.",
+  },
+  {
+    id: 37,
+    slug: "hadith-beware-of-envy",
+    title: "Envy Devours Good Deeds Like Fire Devours Wood",
+    arabic:
+      "إِيَّاكُمْ وَالْحَسَدَ فَإِنَّ الْحَسَدَ يَأْكُلُ الْحَسَنَاتِ كَمَا تَأْكُلُ النَّارُ الْحَطَبَ",
+    transliteration:
+      "Iyyākum wal-hasad, fa-innal-hasada ya'kulul-hasanāti kamā ta'kulun-nārul-hatab",
+    translation:
+      "Abu Huraira reported: The Messenger of Allah (ﷺ) said, \"Beware of envy, for envy devours good deeds just as fire devours wood.\"",
+    narrator: "Abu Hurayrah (RA)",
+    source_book: "Abu Dawud",
+    hadith_number: "4903",
+    grade: "Hasan",
+    topic: "character",
+    topic_tags: ["envy", "hasad", "jealousy", "character", "deeds"],
+    daily_practice:
+      "When you feel envy rising today, replace it with sincere dua for that person — ask Allah to bless them even more.",
+  },
+  {
+    id: 38,
+    slug: "hadith-inna-lillah-in-calamity",
+    title: "Say Inna Lillah and Allah Will Give You Something Better",
+    arabic:
+      "مَا مِنْ عَبْدٍ تُصِيبُهُ مُصِيبَةٌ فَيَقُولُ إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا إِلاَّ أَخْلَفَ اللَّهُ لَهُ خَيْرًا مِنْهَا",
+    transliteration:
+      "Mā min 'abdin tusībuhu musībatun fayaqūl: Innā lillāhi wa innā ilayhi rāji'ūn, Allāhummajurnī fī musībatī wa akhlif lī khayran minhā, illā akhlafallāhu lahu khayran minhā",
+    translation:
+      "Umm Salamah reported: I heard the Messenger of Allah (ﷺ) say, \"There is no Muslim stricken with a calamity who says what Allah has commanded — 'Verily to Allah we belong and to Him we return; O Allah, reward me for my affliction and replace it for me with something better' — except that Allah will replace it for him with something better.\"",
+    narrator: "Umm Salamah (RA)",
+    source_book: "Sahih Muslim",
+    hadith_number: "918",
+    grade: "Sahih",
+    topic: "patience",
+    topic_tags: ["patience", "sabr", "calamity", "inna lillah", "relief"],
+    daily_practice:
+      "In any hardship today, say this dua with full conviction and wait — Allah's replacement is always better.",
+  },
+  {
+    id: 39,
+    slug: "hadith-best-voluntary-prayer-is-night",
+    title: "The Best Voluntary Prayer is the Night Prayer",
+    arabic:
+      "أَفْضَلُ الصَّلاَةِ بَعْدَ الْفَرِيضَةِ صَلاَةُ اللَّيْلِ",
+    transliteration:
+      "Afdalu-s-salāti ba'dal-farīdati salātul-layl",
+    translation:
+      "Abu Huraira reported: The Messenger of Allah (ﷺ) said, \"The best prayer after the obligatory prayers is the night prayer (Qiyam al-Layl).\"",
+    narrator: "Abu Hurayrah (RA)",
+    source_book: "Sahih Muslim",
+    hadith_number: "1163",
+    grade: "Sahih",
+    topic: "worship",
+    topic_tags: ["night prayer", "tahajjud", "qiyam", "voluntary prayer", "ibadah"],
+    daily_practice:
+      "Pray even two rakaat tonight before sleeping — consistency in a small amount is more beloved than occasional bursts.",
+  },
+  {
+    id: 40,
+    slug: "hadith-man-on-religion-of-friend",
+    title: "A Man Follows the Religion of His Closest Friend",
+    arabic:
+      "الرَّجُلُ عَلَى دِينِ خَلِيلِهِ فَلْيَنْظُرْ أَحَدُكُمْ مَنْ يُخَالِلُ",
+    transliteration:
+      "Ar-rajulu 'alā dīni khalīlihi, falyanzur ahadukum man yukhālil",
+    translation:
+      "Abu Huraira reported: The Messenger of Allah (ﷺ) said, \"A man follows the religion of his close friend, so let each one of you look carefully at whom he takes as a close friend.\"",
+    narrator: "Abu Hurayrah (RA)",
+    source_book: "Tirmidhi",
+    hadith_number: "2378",
+    grade: "Hasan",
+    topic: "friendship",
+    topic_tags: ["friendship", "companions", "influence", "character", "community"],
+    daily_practice:
+      "Honestly assess your closest friendships today — do they bring you closer to Allah or draw you away?",
+  },
+  {
+    id: 41,
+    slug: "hadith-prophet-seeks-forgiveness-seventy-times",
+    title: "The Prophet ﷺ Sought Forgiveness More Than Seventy Times Daily",
+    arabic:
+      "وَاللَّهِ إِنِّي لأَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ فِي الْيَوْمِ أَكْثَرَ مِنْ سَبْعِينَ مَرَّةً",
+    transliteration:
+      "Wallāhi innī la'astaghfirullāha wa atūbu ilayhi fīl-yawmi akthara min sab'īna marrah",
+    translation:
+      "Abu Huraira reported: The Messenger of Allah (ﷺ) said, \"By Allah! I seek Allah's forgiveness and repent to Him more than seventy times a day.\"",
+    narrator: "Abu Hurayrah (RA)",
+    source_book: "Sahih Bukhari",
+    hadith_number: "6307",
+    grade: "Sahih",
+    topic: "repentance",
+    topic_tags: ["istighfar", "forgiveness", "tawbah", "sunnah", "repentance"],
+    daily_practice:
+      "Make Astaghfirullah a rhythm of your day — in traffic, while waiting, before sleeping. The Prophet ﷺ never stopped.",
+  },
+  {
+    id: 42,
+    slug: "hadith-world-is-prison-of-believer",
+    title: "The World is a Prison for the Believer",
+    arabic:
+      "الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ",
+    transliteration:
+      "Ad-dunyā sijnul-mu'mini wa jannatul-kāfir",
+    translation:
+      "Abu Huraira reported: The Messenger of Allah (ﷺ) said, \"The world is a prison for the believer and a paradise for the disbeliever.\"",
+    narrator: "Abu Hurayrah (RA)",
+    source_book: "Sahih Muslim",
+    hadith_number: "2956",
+    grade: "Sahih",
+    topic: "dunya",
+    topic_tags: ["dunya", "world", "akhirah", "materialism", "perspective"],
+    daily_practice:
+      "When you feel deprived of something worldly today, remind yourself — your real home and true reward lies ahead.",
+  },
+  {
+    id: 43,
+    slug: "hadith-religion-is-sincere-counsel",
+    title: "The Religion is Sincere Counsel",
+    arabic:
+      "الدِّينُ النَّصِيحَةُ. قُلْنَا لِمَنْ؟ قَالَ: لِلَّهِ وَلِكِتَابِهِ وَلِرَسُولِهِ وَلِأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ",
+    transliteration:
+      "Ad-dīnun-nasīhah. Qulnā: Liman? Qāla: Lillāhi wa li-kitābihi wa li-rasūlihi wa li-a'immatil-muslimīna wa 'āmmatihim",
+    translation:
+      "Tamim al-Dari reported: The Messenger of Allah (ﷺ) said, \"The religion is sincere counsel.\" We said: \"For whom?\" He said: \"For Allah, for His Book, for His Messenger, for the leaders of the Muslims, and for their common people.\"",
+    narrator: "Tamim al-Dari (RA)",
+    source_book: "Sahih Muslim",
+    hadith_number: "55",
+    grade: "Sahih",
+    topic: "sincerity",
+    topic_tags: ["nasihah", "sincerity", "counsel", "community", "character"],
+    daily_practice:
+      "Offer sincere, gentle advice to someone who needs it today — with full care for them and no desire to feel superior.",
+  },
+  {
+    id: 44,
+    slug: "hadith-most-beloved-deeds-are-consistent",
+    title: "The Most Beloved Deeds Are Those Done Consistently",
+    arabic:
+      "أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ",
+    transliteration:
+      "Ahabbul-a'māli ilallāhi adwamuhā wa in qall",
+    translation:
+      "Aisha reported: The Messenger of Allah (ﷺ) said, \"The most beloved deeds to Allah are those which are done consistently, even if they are small.\"",
+    narrator: "Aisha (RA)",
+    source_book: "Sahih Bukhari",
+    hadith_number: "6464",
+    grade: "Sahih",
+    topic: "worship",
+    topic_tags: ["consistency", "deeds", "small deeds", "worship", "beloved"],
+    daily_practice:
+      "Choose one small good deed today — even two rakaat of sunnah or one page of Quran — and commit to never missing it.",
+  },
+  {
+    id: 45,
+    slug: "hadith-relieve-distress-of-your-brother",
+    title: "Whoever Relieves a Believer's Distress",
+    arabic:
+      "مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالآخِرَةِ وَمَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالآخِرَةِ",
+    transliteration:
+      "Man naffasa 'an mu'minin kurbatan min kurabil-dunyā, naffasallāhu 'anhu kurbatan min kurabi yawmil-qiyāmah. Wa man yassara 'alā mu'sirin, yassarallāhu 'alayhi fid-dunyā wal-ākhirah. Wa man satara musliman, satarahullāhu fid-dunyā wal-ākhirah",
+    translation:
+      "Abu Huraira reported: The Messenger of Allah (ﷺ) said, \"Whoever relieves a believer of a distress from the distresses of this world, Allah will relieve him of a distress from the distresses of the Day of Resurrection. Whoever eases the burden of one in hardship, Allah will ease for him in this world and the next. Whoever conceals a Muslim's faults, Allah will conceal his faults in this world and the next.\"",
+    narrator: "Abu Hurayrah (RA)",
+    source_book: "Sahih Muslim",
+    hadith_number: "2699",
+    grade: "Sahih",
+    topic: "brotherhood",
+    topic_tags: ["helping others", "hardship", "relief", "brotherhood", "covering faults"],
+    daily_practice:
+      "Identify someone in difficulty today and take a concrete step to ease their burden — however small.",
+  },
+  {
+    id: 46,
+    slug: "hadith-charity-does-not-decrease-wealth",
+    title: "Charity Does Not Decrease Wealth",
+    arabic:
+      "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلاَّ عِزًّا وَمَا تَوَاضَعَ أَحَدٌ لِلَّهِ إِلاَّ رَفَعَهُ اللَّهُ",
+    transliteration:
+      "Mā naqasat sadaqatun min māl. Wa mā zādallāhu 'abdan bi'afwin illā 'izzā. Wa mā tawāda'a ahadun lillāhi illā rafa'ahullāh",
+    translation:
+      "Abu Huraira reported: The Messenger of Allah (ﷺ) said, \"Charity does not decrease wealth. Allah increases only in honor the one who pardons. And whoever humbles himself for the sake of Allah, Allah elevates him.\"",
+    narrator: "Abu Hurayrah (RA)",
+    source_book: "Sahih Muslim",
+    hadith_number: "2588",
+    grade: "Sahih",
+    topic: "charity",
+    topic_tags: ["charity", "sadaqah", "wealth", "forgiveness", "humility"],
+    daily_practice:
+      "Give something in charity today — and forgive someone who has wronged you. Both will elevate you.",
+  },
+  {
+    id: 47,
+    slug: "hadith-two-blessings-health-and-time",
+    title: "Two Blessings That Many People Squander",
+    arabic:
+      "نِعْمَتَانِ مَغْبُونٌ فِيهِمَا كَثِيرٌ مِنَ النَّاسِ الصِّحَّةُ وَالْفَرَاغُ",
+    transliteration:
+      "Ni'matāni maghbūnun fīhimā kathīrun minan-nāsi: as-sihatu wal-farāgh",
+    translation:
+      "Ibn Abbas reported: The Messenger of Allah (ﷺ) said, \"There are two blessings which many people squander: good health and free time.\"",
+    narrator: "Ibn Abbas (RA)",
+    source_book: "Sahih Bukhari",
+    hadith_number: "6412",
+    grade: "Sahih",
+    topic: "gratitude",
+    topic_tags: ["health", "time", "blessings", "gratitude", "dunya"],
+    daily_practice:
+      "Use one hour today with full intentionality — for worship, beneficial knowledge, or helping someone.",
+  },
+  {
+    id: 48,
+    slug: "hadith-allah-looks-at-your-hearts",
+    title: "Allah Does Not Look at Your Faces — He Looks at Your Hearts",
+    arabic:
+      "إِنَّ اللَّهَ لاَ يَنْظُرُ إِلَى أَجْسَامِكُمْ وَلاَ إِلَى صُوَرِكُمْ وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ",
+    transliteration:
+      "Innallāha lā yanzuru ilā ajsāmikum wa lā ilā suwarikum wa lākin yanzuru ilā qulūbikum wa a'mālikum",
+    translation:
+      "Abu Huraira reported: The Messenger of Allah (ﷺ) said, \"Verily, Allah does not look at your bodies, nor at your faces, but He looks at your hearts and your deeds.\"",
+    narrator: "Abu Hurayrah (RA)",
+    source_book: "Sahih Muslim",
+    hadith_number: "2564",
+    grade: "Sahih",
+    topic: "sincerity",
+    topic_tags: ["intention", "heart", "sincerity", "deeds", "appearance"],
+    daily_practice:
+      "Work on the inside today — purify your intentions before every deed. What matters to Allah is invisible to others.",
+  },
+  {
+    id: 49,
+    slug: "hadith-sponsor-orphan-in-paradise",
+    title: "The Sponsor of an Orphan Will Be This Close to the Prophet ﷺ in Paradise",
+    arabic:
+      "أَنَا وَكَافِلُ الْيَتِيمِ فِي الْجَنَّةِ هَكَذَا. وَأَشَارَ بِالسَّبَّابَةِ وَالْوُسْطَى وَفَرَّجَ بَيْنَهُمَا شَيْئًا",
+    transliteration:
+      "Anā wa kāfilul-yatīmi fil-jannati hākadhā. Wa ashāra bis-sabbābati wal-wustā wa farraja baynahumā shay'ā",
+    translation:
+      "Sahl ibn Sa'd reported: The Messenger of Allah (ﷺ) said, \"I and the one who sponsors an orphan will be in Paradise like these two\" — and he pointed with his index finger and middle finger, holding them close together.",
+    narrator: "Sahl ibn Sa'd (RA)",
+    source_book: "Sahih Bukhari",
+    hadith_number: "5304",
+    grade: "Sahih",
+    topic: "charity",
+    topic_tags: ["orphan", "charity", "paradise", "compassion", "prophet"],
+    daily_practice:
+      "Look into sponsoring an orphan today — even a small monthly amount earns the greatest companionship in Paradise.",
+  },
+  {
+    id: 50,
+    slug: "hadith-best-jihad-just-word",
+    title: "The Best Jihad is a Just Word Before an Unjust Ruler",
+    arabic:
+      "أَفْضَلُ الْجِهَادِ كَلِمَةُ عَدْلٍ عِنْدَ سُلْطَانٍ جَائِرٍ",
+    transliteration:
+      "Afdalu-l-jihādi kalimatu 'adlin 'inda sultānin jā'ir",
+    translation:
+      "Abu Said al-Khudri reported: The Messenger of Allah (ﷺ) said, \"The best jihad is a just word spoken before an unjust ruler.\"",
+    narrator: "Abu Said al-Khudri (RA)",
+    source_book: "Ibn Majah",
+    hadith_number: "4011",
+    grade: "Hasan",
+    topic: "justice",
+    topic_tags: ["justice", "truth", "courage", "jihad", "speaking up"],
+    daily_practice:
+      "Speak the truth today even when it is uncomfortable — this is one of the highest forms of worship.",
   },
 ];
 

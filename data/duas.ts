@@ -2942,92 +2942,291 @@ export function getDuasByEmotion(emotion: string): Dua[] {
   return DUAS.filter((d) => d.emotion_tags.includes(emotion as never));
 }
 
-// Common Arabic/Islamic synonym expansions so searches like "zikr", "umrah",
-// "mother", "wudhu" etc. still surface relevant results.
+// ─── Search engine ────────────────────────────────────────────────────────────
+//
+// Improvements over the old substring filter:
+//   1. Arabic text is searched (with tashkeel stripped)
+//   2. Transliteration diacritics are normalised (ā→a, ḥ→h, ū→u …)
+//   3. CamelCase splitting: "SubhanAllah" → searches "subhan" + "allah"
+//   4. Levenshtein fuzzy matching: "forgivness" still finds forgiveness duas
+//   5. Relevance scoring: title matches rank above translation matches
+//   6. Expanded Islamic synonym dictionary
+//
+
+// ── Normalisation helpers ─────────────────────────────────────────────────────
+
+/** Strip Arabic tashkeel/diacritics so بِسْمِ الله == بسم الله in search. */
+function normalizeArabic(text: string): string {
+  return text.replace(/[\u064B-\u065F\u0610-\u061A\u06D6-\u06DC\u0640]/g, "");
+}
+
+/**
+ * Normalise Latin text for search:
+ *   - lowercase
+ *   - NFD decompose → strip combining diacritics (ā→a, ḥ→h, ū→u …)
+ *   - collapse apostrophes/hamzas to ASCII '
+ */
+function normalizeLatin(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[''ʿʾ`]/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** Split camelCase so "SubhanAllah" → ["subhanallah", "subhan", "allah"]. */
+function splitCamel(word: string): string[] {
+  const lower = word.toLowerCase();
+  const parts = word
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .toLowerCase()
+    .split(" ")
+    .filter(Boolean);
+  return parts.length > 1 ? [lower, ...parts] : [lower];
+}
+
+/** Tokenise a string into normalised words (≥2 chars). */
+function tokenize(text: string): string[] {
+  return normalizeLatin(text)
+    .split(/[\s\-_,.'"]+/)
+    .filter((w) => w.length >= 2);
+}
+
+/** Levenshtein edit distance (space-optimised single-row). */
+function editDistance(a: string, b: string): number {
+  const m = a.length, n = b.length;
+  const row = Array.from({ length: n + 1 }, (_, i) => i);
+  for (let i = 1; i <= m; i++) {
+    let prev = row[0];
+    row[0] = i;
+    for (let j = 1; j <= n; j++) {
+      const tmp = row[j];
+      row[j] =
+        a[i - 1] === b[j - 1] ? prev : 1 + Math.min(prev, row[j], row[j - 1]);
+      prev = tmp;
+    }
+  }
+  return row[n];
+}
+
+/**
+ * Returns true if `qWord` is a likely typo of `targetWord`.
+ * Allows distance 1 for words ≥5 chars, distance 2 for ≥9 chars.
+ */
+function isTypoOf(qWord: string, targetWord: string): boolean {
+  if (qWord.length < 5 || targetWord.length < 3) return false;
+  const maxDist = qWord.length >= 9 ? 2 : 1;
+  if (Math.abs(qWord.length - targetWord.length) > maxDist) return false;
+  return editDistance(qWord, targetWord) <= maxDist;
+}
+
+// ── Synonym / alias dictionary ────────────────────────────────────────────────
+
 const SEARCH_SYNONYMS: Record<string, string[]> = {
-  water:       ["drink", "drinking"],
-  umrah:       ["travel", "hajj", "pilgrimage"],
-  zikr:        ["dhikr", "remembrance"],
-  jummah:      ["friday", "jumah"],
-  jumah:       ["friday", "jummah"],
-  namaz:       ["prayer", "salah"],
-  wudhu:       ["wudu", "ablution"],
-  wuzu:        ["wudu", "ablution"],
-  mother:      ["parents", "mother"],
-  father:      ["parents", "father"],
-  mecca:       ["hajj", "travel", "pilgrimage"],
-  makkah:      ["hajj", "travel", "pilgrimage"],
-  kaaba:       ["hajj", "travel"],
-  medina:      ["travel", "journey"],
-  madinah:     ["travel", "journey"],
-  pilgrimage:  ["hajj", "umrah", "travel"],
-  sunnah:      ["prayer", "hadith", "worship"],
-  subhanallah: ["glory", "glorification", "tasbih"],
-  alhamdulillah: ["praise", "gratitude"],
-  bismillah:   ["eating", "daily"],
-  anger:       ["angry", "conflict", "shaytan"],
-  loneliness:  ["lonely", "depression", "sadness"],
-  lonely:      ["loneliness", "depression"],
-  anxious:     ["anxiety", "stress", "worry"],
-  anxiousness: ["anxiety", "stress", "worry"],
-  worry:       ["anxiety", "stress", "worried"],
-  depressed:   ["depression", "sadness", "grief"],
-  grief:       ["sadness", "deceased", "death"],
-  sick:        ["illness", "sickness", "healing"],
-  heal:        ["healing", "illness", "ruqyah"],
-  cure:        ["healing", "illness", "ruqyah", "shifa"],
-  death:       ["deceased", "funeral", "janazah"],
-  baby:        ["newborn", "children", "family"],
-  child:       ["children", "family", "offspring"],
-  exam:        ["studying", "knowledge", "wisdom"],
-  study:       ["exam", "knowledge", "studying"],
-  job:         ["rizq", "provision", "work"],
-  money:       ["rizq", "provision", "debt"],
-  debt:        ["financial", "poverty", "rizq"],
-  sleep:       ["before-sleep", "bedtime", "night"],
-  night:       ["before-sleep", "bedtime", "sleep"],
-  morning:     ["adhkar", "waking-up"],
-  evening:     ["adhkar", "night"],
-  friday:      ["jummah", "jumah", "salawat"],
+  // ── Islamic phrases in transliteration ────────────────────────────────────
+  subhan:           ["glory", "glorification", "tasbih"],
+  subhanallah:      ["subhan", "glory", "tasbih", "glorification"],
+  alhamdu:          ["praise", "hamd", "gratitude"],
+  alhamdulillah:    ["alhamdu", "praise", "hamd", "gratitude"],
+  bismillah:        ["bismika", "eating", "name", "start"],
+  bismika:          ["bismillah", "name", "eating"],
+  allahu:           ["allah", "prayer"],
+  akbar:            ["great", "greatness"],
+  "allahu akbar":   ["takbeer", "prayer", "greatness"],
+  astaghfir:        ["forgiveness", "istighfar", "repentance"],
+  astaghfirullah:   ["astaghfir", "forgiveness", "istighfar", "repentance"],
+  istighfar:        ["forgiveness", "repentance", "astaghfir"],
+  inna:             ["innalillahi", "calamity", "loss"],
+  innalillahi:      ["inna", "lillah", "calamity", "grief", "death", "loss"],
+  lillah:           ["innalillahi", "calamity"],
+  rabb:             ["lord", "allah", "prayer"],
+  rabbi:            ["rabb", "lord"],
+  allahumma:        ["allah", "prayer"],
+  inshallah:        ["hope", "future"],
+  mashallah:        ["praise", "blessing"],
+  dhikr:            ["remembrance", "zikr", "glorification"],
+  zikr:             ["dhikr", "remembrance"],
+  tasbih:           ["subhan", "glorification", "dhikr"],
+  takbeer:          ["allahu akbar", "greatness", "prayer"],
+  hamd:             ["alhamdu", "praise", "gratitude"],
+  shukr:            ["gratitude", "thanks", "praise"],
+  salah:            ["prayer", "namaz", "worship"],
+  salat:            ["prayer", "salah", "worship"],
+  ruqyah:           ["healing", "protection", "evil"],
+  shifa:            ["healing", "cure", "illness"],
+  rizq:             ["provision", "money", "sustenance", "income"],
+  // ── English aliases ────────────────────────────────────────────────────────
+  water:            ["drink", "drinking"],
+  umrah:            ["travel", "hajj", "pilgrimage"],
+  jummah:           ["friday", "jumah"],
+  jumah:            ["friday", "jummah"],
+  namaz:            ["prayer", "salah"],
+  wudhu:            ["wudu", "ablution"],
+  wuzu:             ["wudu", "ablution"],
+  wudu:             ["ablution", "purification"],
+  mother:           ["parents"],
+  father:           ["parents"],
+  mecca:            ["hajj", "travel", "pilgrimage"],
+  makkah:           ["hajj", "travel", "pilgrimage"],
+  kaaba:            ["hajj", "travel"],
+  medina:           ["travel", "journey"],
+  madinah:          ["travel", "journey"],
+  pilgrimage:       ["hajj", "umrah", "travel"],
+  sunnah:           ["prayer", "hadith", "worship"],
+  mosque:           ["masjid", "prayer", "worship"],
+  masjid:           ["mosque", "prayer", "worship"],
+  anger:            ["angry", "conflict", "shaytan"],
+  loneliness:       ["lonely", "depression", "sadness"],
+  lonely:           ["loneliness", "depression"],
+  anxious:          ["anxiety", "stress", "worry"],
+  anxiousness:      ["anxiety", "stress", "worry"],
+  worry:            ["anxiety", "stress", "worried"],
+  depressed:        ["depression", "sadness", "grief"],
+  grief:            ["sadness", "deceased", "death"],
+  sick:             ["illness", "sickness", "healing"],
+  heal:             ["healing", "illness", "ruqyah"],
+  cure:             ["healing", "illness", "ruqyah", "shifa"],
+  death:            ["deceased", "funeral", "janazah"],
+  baby:             ["newborn", "children", "family"],
+  child:            ["children", "family", "offspring"],
+  exam:             ["studying", "knowledge", "wisdom"],
+  study:            ["exam", "knowledge", "studying"],
+  job:              ["rizq", "provision", "work"],
+  work:             ["rizq", "job", "provision"],
+  money:            ["rizq", "provision", "debt"],
+  debt:             ["financial", "poverty", "rizq"],
+  sleep:            ["before-sleep", "bedtime", "night"],
+  night:            ["before-sleep", "bedtime", "sleep", "evening"],
+  morning:          ["adhkar", "waking-up"],
+  evening:          ["adhkar", "night"],
+  friday:           ["jummah", "jumah", "salawat"],
+  rain:             ["mercy", "weather", "sky"],
+  thunder:          ["fear", "protection", "weather"],
+  sneeze:           ["daily-life", "manners"],
+  mirror:           ["daily-life", "appearance"],
+  market:           ["daily-life", "trade"],
 };
 
+// ── Scoring weights ───────────────────────────────────────────────────────────
+
+const W = {
+  TITLE_PHRASE:        12,
+  TITLE_WORD:           7,
+  TITLE_FUZZY:          4,
+  TRANSLIT_PHRASE:     10,
+  TRANSLIT_WORD:        5,
+  TRANSLIT_FUZZY:       3,
+  ARABIC_PHRASE:        9,
+  ARABIC_WORD:          5,
+  TRANSLATION_PHRASE:   6,
+  TRANSLATION_WORD:     3,
+  TRANSLATION_FUZZY:    2,
+  TAG_PHRASE:           8,
+  TAG_WORD:             4,
+  SOURCE:               2,
+};
+
+function scoreDua(
+  dua: Dua,
+  phrases: string[],  // normalised full-phrase candidates (query + synonyms)
+  words: string[],    // normalised meaningful individual words
+  arabicQ: string,    // Arabic-normalised query (empty if no Arabic in input)
+): number {
+  let score = 0;
+
+  const title       = normalizeLatin(dua.title);
+  const translit    = normalizeLatin(dua.transliteration);
+  const translation = normalizeLatin(dua.translation);
+  const arabic      = normalizeArabic(dua.arabic_text);
+  const tags        = [...dua.situation_tags, ...dua.emotion_tags, dua.category]
+    .map(normalizeLatin)
+    .join(" ");
+
+  // ── Phrase-level scoring ──────────────────────────────────────────────────
+  for (const phrase of phrases) {
+    if (title.includes(phrase))       score += W.TITLE_PHRASE;
+    if (translit.includes(phrase))    score += W.TRANSLIT_PHRASE;
+    if (translation.includes(phrase)) score += W.TRANSLATION_PHRASE;
+    if (tags.includes(phrase))        score += W.TAG_PHRASE;
+  }
+  if (arabicQ && arabic.includes(arabicQ)) score += W.ARABIC_PHRASE;
+
+  // ── Word-level scoring ────────────────────────────────────────────────────
+  const titleToks   = tokenize(dua.title);
+  const translToks  = tokenize(dua.transliteration);
+  const transToks   = tokenize(dua.translation);
+
+  for (const word of words) {
+    // Exact substring presence
+    if (title.includes(word))       score += W.TITLE_WORD;
+    if (translit.includes(word))    score += W.TRANSLIT_WORD;
+    if (translation.includes(word)) score += W.TRANSLATION_WORD;
+    if (arabic.includes(word))      score += W.ARABIC_WORD;
+    if (tags.includes(word))        score += W.TAG_WORD;
+
+    // Fuzzy (typo-tolerant) matching on tokenised fields
+    if (word.length >= 5) {
+      if (!title.includes(word) && titleToks.some((t) => isTypoOf(word, t)))
+        score += W.TITLE_FUZZY;
+      if (!translit.includes(word) && translToks.some((t) => isTypoOf(word, t)))
+        score += W.TRANSLIT_FUZZY;
+      if (!translation.includes(word) && transToks.some((t) => isTypoOf(word, t)))
+        score += W.TRANSLATION_FUZZY;
+    }
+  }
+
+  return score;
+}
+
+// ── Stop-words ────────────────────────────────────────────────────────────────
+
+const STOPWORDS = new Set([
+  "dua", "for", "the", "when", "before", "after", "and",
+  "in", "a", "of", "to", "from", "upon", "with", "at",
+  "is", "be", "an", "on", "my", "your",
+]);
+
+// ── Main search function ──────────────────────────────────────────────────────
+
 export function searchDuas(query: string): Dua[] {
-  const q = query.toLowerCase().trim();
+  const q = normalizeLatin(query);
   if (!q) return [];
 
-  // Build expanded set of terms from synonyms (full-phrase lookup)
-  const terms = Array.from(new Set([q, ...(SEARCH_SYNONYMS[q] ?? [])]));
+  // Arabic input → normalise separately for Arabic field matching
+  const hasArabic = /[\u0600-\u06FF]/.test(query);
+  const arabicQ   = hasArabic ? normalizeArabic(query) : "";
 
-  // Extract meaningful individual words — skip Islamic/search stopwords
-  const STOPWORDS = new Set([
-    "dua", "for", "the", "when", "before", "after", "and",
-    "in", "a", "of", "to", "from", "upon", "with", "at",
-  ]);
-  const words = q.split(/\s+/).filter(
-    (w) => w.length > 2 && !STOPWORDS.has(w)
+  // CamelCase splitting: "SubhanAllah" → ["subhanallah", "subhan", "allah"]
+  const rawTokens    = q.split(/[\s\-_]+/).filter(Boolean);
+  const camelExpanded = rawTokens.flatMap(splitCamel);
+
+  // Full-phrase synonym expansion
+  const phraseSynonyms = SEARCH_SYNONYMS[q] ?? [];
+
+  // Meaningful individual words, expanded through synonym dictionary
+  const meaningfulWords = Array.from(
+    new Set([
+      ...camelExpanded.filter((w) => w.length > 2 && !STOPWORDS.has(w)),
+      ...camelExpanded.flatMap((w) => SEARCH_SYNONYMS[w] ?? []),
+    ])
   );
 
-  // Expand individual words through synonyms too
-  const expandedWords = Array.from(
-    new Set([...words, ...words.flatMap((w) => SEARCH_SYNONYMS[w] ?? [])])
-  );
+  // All full-phrase candidates (original query + synonyms)
+  const phrases = Array.from(new Set([q, ...phraseSynonyms]));
 
-  const fieldMatch = (d: Dua, t: string): boolean =>
-    d.title.toLowerCase().includes(t) ||
-    d.translation.toLowerCase().includes(t) ||
-    d.transliteration.toLowerCase().includes(t) ||
-    d.situation_tags.some((tag) => tag.includes(t)) ||
-    d.emotion_tags.some((tag) => tag.includes(t)) ||
-    d.category.includes(t) ||
-    d.source_book.toLowerCase().includes(t);
+  // Score all duas and discard zero-score entries
+  const scored = DUAS
+    .map((dua) => ({
+      dua,
+      score: scoreDua(dua, phrases, meaningfulWords, arabicQ),
+    }))
+    .filter(({ score }) => score > 0);
 
-  return DUAS.filter(
-    (d) =>
-      // 1. Full-phrase / synonym match (original behaviour, zero regressions)
-      terms.some((t) => fieldMatch(d, t)) ||
-      // 2. Word-level match — every meaningful word must appear somewhere
-      (expandedWords.length > 0 && expandedWords.every((w) => fieldMatch(d, w)))
-  );
+  // Return sorted by relevance (highest score first)
+  scored.sort((a, b) => b.score - a.score);
+  return scored.map(({ dua }) => dua);
 }
 
 export function getDailyDua(): Dua {

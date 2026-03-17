@@ -5,19 +5,7 @@ import { Share2, Copy, Check, MessageCircle, Twitter, Facebook } from "lucide-re
 import toast from "react-hot-toast";
 import { formatShareText, formatTwitterText, SITE_URL } from "@/lib/utils";
 import type { Dua } from "@/types";
-
-function trackShare(method: string, slug: string) {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).gtag?.("event", "share", {
-      method,
-      content_type: "dua",
-      item_id: slug,
-    });
-  } catch {
-    // GA not available
-  }
-}
+import { trackShareDua } from "@/lib/analytics";
 
 export function ShareButtons({ dua }: { dua: Dua }) {
   const [copied, setCopied] = useState(false);
@@ -38,7 +26,7 @@ export function ShareButtons({ dua }: { dua: Dua }) {
       await navigator.clipboard.writeText(url);
       setCopied(true);
       toast.success("Link copied!");
-      trackShare("copy_link", dua.slug);
+      trackShareDua("copy_link", dua.slug);
       copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
     } catch {
       toast.error("Could not copy");
@@ -48,7 +36,7 @@ export function ShareButtons({ dua }: { dua: Dua }) {
   function shareWhatsApp() {
     const whatsappText = encodeURIComponent(`${text}\n\n${url}`);
     window.open(`https://wa.me/?text=${whatsappText}`, "_blank", "noopener");
-    trackShare("whatsapp", dua.slug);
+    trackShareDua("whatsapp", dua.slug);
   }
 
   function shareTwitter() {
@@ -58,7 +46,7 @@ export function ShareButtons({ dua }: { dua: Dua }) {
       "_blank",
       "noopener,width=600,height=400"
     );
-    trackShare("twitter", dua.slug);
+    trackShareDua("twitter", dua.slug);
   }
 
   function shareFacebook() {
@@ -67,14 +55,14 @@ export function ShareButtons({ dua }: { dua: Dua }) {
       "_blank",
       "noopener,width=600,height=400"
     );
-    trackShare("facebook", dua.slug);
+    trackShareDua("facebook", dua.slug);
   }
 
   async function nativeShare() {
     if (navigator.share) {
       try {
         await navigator.share({ title: dua.title, text, url });
-        trackShare("native", dua.slug);
+        trackShareDua("native", dua.slug);
       } catch {
         // User cancelled
       }

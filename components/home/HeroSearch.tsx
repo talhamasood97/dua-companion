@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
+import { trackSearch, trackSearchSuggestion } from "@/lib/analytics";
 
 const SUGGESTIONS = [
   "dua before sleeping",
@@ -28,8 +29,10 @@ export function HeroSearch() {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      if (query.trim()) {
-        router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+      const q = query.trim();
+      if (q) {
+        trackSearch(q, -1); // result_count filled in by SearchResultsTracker on the results page
+        router.push(`/search?q=${encodeURIComponent(q)}`);
       }
     },
     [query, router]
@@ -37,6 +40,7 @@ export function HeroSearch() {
 
   const handleSuggestion = useCallback(
     (s: string) => {
+      trackSearchSuggestion(s);
       router.push(`/search?q=${encodeURIComponent(s)}`);
     },
     [router]

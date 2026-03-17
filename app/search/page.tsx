@@ -7,6 +7,7 @@ import { searchDuas } from "@/lib/duas";
 import { DuaCard } from "@/components/dua/DuaCard";
 import { HeroSearch } from "@/components/home/HeroSearch";
 import { DUAS } from "@/data/duas";
+import { SearchResultsTracker } from "@/components/analytics/SearchResultsTracker";
 
 interface Props {
   searchParams: { q?: string };
@@ -32,6 +33,7 @@ export default async function SearchPage({ searchParams }: Props) {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 animate-fade-in">
+      <SearchResultsTracker query={query} resultCount={results.total} />
       {/* Header */}
       <div className="mb-8 sm:mb-12">
         {query ? (

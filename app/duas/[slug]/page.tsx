@@ -8,6 +8,7 @@ import { ShareButtons } from "@/components/dua/ShareButtons";
 import { SaveButton } from "@/components/dua/SaveButton";
 import { RelatedDuas } from "@/components/dua/RelatedDuas";
 import { getCategoryMeta, getEmotionMeta, SITE_URL, SITE_NAME } from "@/lib/utils";
+import { DuaViewTracker } from "@/components/analytics/DuaViewTracker";
 
 export const revalidate = 86400;
 
@@ -109,6 +110,12 @@ export default async function DuaPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
+      <DuaViewTracker
+        slug={dua.slug}
+        category={dua.category}
+        sourceBook={dua.source_book}
+        grade={dua.authenticity_grade}
       />
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 animate-fade-in">

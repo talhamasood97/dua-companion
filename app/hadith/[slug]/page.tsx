@@ -5,6 +5,7 @@ import { BookOpen, ChevronRight, CheckCircle } from "lucide-react";
 import { getHadithBySlug, getAllHadithSlugs, HADITHS } from "@/data/hadiths";
 import { SubscribeForm } from "@/components/hadith/SubscribeForm";
 import { SITE_NAME, SITE_URL } from "@/lib/utils";
+import { HadithViewTracker } from "@/components/analytics/HadithViewTracker";
 
 export const revalidate = 86400;
 
@@ -67,7 +68,7 @@ export default function HadithPage({ params }: Props) {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-          { "@type": "ListItem", position: 2, name: "Hadith of the Day", item: `${SITE_URL}/daily-hadith` },
+          { "@type": "ListItem", position: 2, name: "Hadiths", item: `${SITE_URL}/hadith` },
           { "@type": "ListItem", position: 3, name: hadith.title, item: `${SITE_URL}/hadith/${hadith.slug}` },
         ],
       },
@@ -80,6 +81,12 @@ export default function HadithPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      <HadithViewTracker
+        slug={hadith.slug}
+        topic={hadith.topic}
+        sourceBook={hadith.source_book}
+        grade={hadith.grade}
+      />
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12 animate-fade-in">
         {/* Breadcrumb */}
@@ -89,10 +96,10 @@ export default function HadithPage({ params }: Props) {
           </Link>
           <ChevronRight className="w-3 h-3" />
           <Link
-            href="/daily-hadith"
+            href="/hadith"
             className="hover:text-emerald-600 transition-colors"
           >
-            Hadith of the Day
+            Hadiths
           </Link>
           <ChevronRight className="w-3 h-3" />
           <span className="text-stone-500 truncate max-w-[160px]">

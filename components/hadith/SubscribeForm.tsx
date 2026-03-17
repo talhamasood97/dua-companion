@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 import { Mail, CheckCircle, Loader2 } from "lucide-react";
+import {
+  trackSubscribeAttempt,
+  trackSubscribeSuccess,
+  trackSubscribeError,
+} from "@/lib/analytics";
 
 export function SubscribeForm() {
   const [email, setEmail] = useState("");
@@ -13,6 +18,7 @@ export function SubscribeForm() {
     e.preventDefault();
     if (!email) return;
     setStatus("loading");
+    trackSubscribeAttempt();
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
@@ -23,13 +29,16 @@ export function SubscribeForm() {
       if (res.ok) {
         setStatus("success");
         setMessage(data.message ?? "You're subscribed! Check your inbox.");
+        trackSubscribeSuccess();
       } else {
         setStatus("error");
         setMessage(data.error ?? "Something went wrong. Please try again.");
+        trackSubscribeError(data.error ?? "api_error");
       }
     } catch {
       setStatus("error");
       setMessage("Network error. Please try again.");
+      trackSubscribeError("network_error");
     }
   }
 

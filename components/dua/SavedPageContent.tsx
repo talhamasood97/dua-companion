@@ -11,15 +11,7 @@ import { AuthenticityBadge } from "./AuthenticityBadge";
 import { DUAS } from "@/data/duas";
 import { getCategoryMeta, SITE_URL } from "@/lib/utils";
 import type { Dua } from "@/types";
-
-function trackEvent(name: string, params?: Record<string, string | number>) {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).gtag?.("event", name, params);
-  } catch {
-    // GA not available
-  }
-}
+import { trackSaveSharedCollection, trackShareCollection } from "@/lib/analytics";
 
 // ── Shared collection banner ─────────────────────────────────────────────────
 function SharedBanner({ duas, onAddAll }: { duas: Dua[]; onAddAll: () => void }) {
@@ -172,7 +164,7 @@ export function SavedPageContent() {
     if (sharedSlugs) {
       addMany(sharedSlugs);
       toast.success(`${sharedSlugs.length} duas saved to your collection!`);
-      trackEvent("save_shared_collection", { count: sharedSlugs.length });
+      trackSaveSharedCollection(sharedSlugs.length);
     }
   }
 
@@ -186,12 +178,12 @@ export function SavedPageContent() {
           text: `I've saved ${count} beautiful duas on DuaVault. Here's my collection:`,
           url,
         });
-        trackEvent("share_collection", { method: "native", count });
+        trackShareCollection("native", count);
       } else {
         await navigator.clipboard.writeText(url);
         setCopied(true);
         toast.success("Collection link copied!");
-        trackEvent("share_collection", { method: "copy", count });
+        trackShareCollection("copy", count);
         setTimeout(() => setCopied(false), 2500);
       }
     } catch {
