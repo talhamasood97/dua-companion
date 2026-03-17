@@ -63,9 +63,12 @@ export async function POST(req: NextRequest) {
     const { email, name: rawName } = await req.json();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-    if (!email || typeof email !== "string" || !emailRegex.test(email)) {
+    if (!email || typeof email !== "string" || !emailRegex.test(email.trim())) {
       return NextResponse.json({ error: "Valid email required." }, { status: 400 });
     }
+
+    // Normalize server-side — the form does this too, but API callers bypass the form.
+    const normalizedEmail = email.trim().toLowerCase();
 
     // Sanitise name: printable ASCII/Unicode only, max 50 chars
     const name =
@@ -86,7 +89,7 @@ export async function POST(req: NextRequest) {
     const { data: existing } = await db
       .from("hadith_subscribers")
       .select("id, confirmed")
-      .eq("email", email)
+      .eq("email", normalizedEmail)
       .single();
 
     if (existing?.confirmed) {
@@ -100,7 +103,7 @@ export async function POST(req: NextRequest) {
     // Upsert subscriber (insert or re-send confirmation)
     const { data: subscriber, error } = await db
       .from("hadith_subscribers")
-      .upsert({ email, name: name || null }, { onConflict: "email" })
+      .upsert({ email: normalizedEmail, name: name || null }, { onConflict: "email" })
       .select("unsubscribe_token")
       .single();
 
@@ -114,7 +117,7 @@ export async function POST(req: NextRequest) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const { error: sendError } = await resend.emails.send({
         from: process.env.RESEND_FROM_EMAIL ?? "noreply@duavault.com",
-        to: email,
+        to: normalizedEmail,
         subject: "Confirm your Daily Hadith subscription — DuaVault",
         html: buildConfirmationEmail(name ?? "", subscriber.unsubscribe_token),
       });

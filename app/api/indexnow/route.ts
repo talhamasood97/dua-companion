@@ -65,8 +65,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   return NextResponse.json({
-    message: "Use POST to submit all URLs to IndexNow",
+    message: "Use POST with Authorization: Bearer <CRON_SECRET> to submit all URLs to IndexNow",
     urlCount: getAllUrls().length,
-    key: INDEXNOW_KEY,
   });
 }

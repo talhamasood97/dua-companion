@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
+import { escapeHtml } from "@/lib/utils";
 
 export const runtime = "nodejs";
 
@@ -40,6 +41,9 @@ export async function GET(req: NextRequest) {
     }
   }
 
+  // Escape token before embedding in HTML to prevent XSS.
+  const safeToken = escapeHtml(token);
+
   // Return a minimal confirmation page — user must click the button to POST.
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -65,7 +69,7 @@ export async function GET(req: NextRequest) {
     <h1>Confirm your subscription</h1>
     <p>Click the button below to start receiving one authentic hadith every morning.</p>
     <form method="POST" action="/api/confirm-subscription">
-      <input type="hidden" name="token" value="${token}">
+      <input type="hidden" name="token" value="${safeToken}">
       <button type="submit">Confirm My Subscription →</button>
     </form>
     <p class="note">If you did not sign up for this, simply close this page.</p>

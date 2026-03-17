@@ -1,9 +1,20 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { getAllDuas, getDuasByCategory, getDuasByEmotion } from "@/lib/duas";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
+  // Rate limit: 60 requests per IP per minute
+  const ip = getClientIp(request.headers);
+  const rl = rateLimit(`duas:${ip}`, 60, 60 * 1000);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please slow down." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } }
+    );
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
