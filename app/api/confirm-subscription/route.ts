@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { escapeHtml } from "@/lib/utils";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 
@@ -12,6 +13,16 @@ const hasSupabase =
 
 /** Confirmation landing page — shown when user clicks the email link. */
 export async function GET(req: NextRequest) {
+  // Rate limit: 20 page loads per IP per minute
+  const ip = getClientIp(req.headers);
+  const rl = rateLimit(`confirm-get:${ip}`, 20, 60 * 1000);
+  if (!rl.allowed) {
+    return new NextResponse("Too many requests. Please slow down.", {
+      status: 429,
+      headers: { "Retry-After": String(rl.retryAfterSec), "Content-Type": "text/plain" },
+    });
+  }
+
   const token = req.nextUrl.searchParams.get("token");
 
   if (!token) {
@@ -84,6 +95,13 @@ export async function GET(req: NextRequest) {
 
 /** Performs the actual confirmation — only reachable via the form POST. */
 export async function POST(req: NextRequest) {
+  // Rate limit: 10 confirmation attempts per IP per minute
+  const ip = getClientIp(req.headers);
+  const rl = rateLimit(`confirm-post:${ip}`, 10, 60 * 1000);
+  if (!rl.allowed) {
+    return NextResponse.redirect(`${SITE_URL}/daily-hadith?confirmed=error`);
+  }
+
   let token: string | null = null;
 
   // Support both form submissions and JSON (for future API use).

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 
@@ -8,6 +9,16 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://duavault.com";
 // GET — show a confirmation page so bots/prefetch crawlers cannot accidentally
 // trigger the deletion. The actual delete happens on POST (form submission).
 export async function GET(req: NextRequest) {
+  // Rate limit: 20 page loads per IP per minute
+  const ip = getClientIp(req.headers);
+  const rl = rateLimit(`unsub-get:${ip}`, 20, 60 * 1000);
+  if (!rl.allowed) {
+    return new NextResponse("Too many requests. Please slow down.", {
+      status: 429,
+      headers: { "Retry-After": String(rl.retryAfterSec), "Content-Type": "text/plain" },
+    });
+  }
+
   const token = req.nextUrl.searchParams.get("token");
 
   if (!token) {
@@ -58,6 +69,13 @@ export async function GET(req: NextRequest) {
 
 // POST — performs the actual deletion after user confirms intent on the page above.
 export async function POST(req: NextRequest) {
+  // Rate limit: 10 deletion attempts per IP per minute
+  const ip = getClientIp(req.headers);
+  const rl = rateLimit(`unsub-post:${ip}`, 10, 60 * 1000);
+  if (!rl.allowed) {
+    return NextResponse.redirect(`${SITE_URL}/daily-hadith?unsubscribed=error`);
+  }
+
   let token: string | null = null;
 
   try {
