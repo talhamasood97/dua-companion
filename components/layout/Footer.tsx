@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, Heart } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 const SOURCES = [
   "Sahih al-Bukhari",
@@ -95,8 +95,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400 dark:text-stone-600">
           <p>
-            © {new Date().getFullYear()} DuaVault · Made with{" "}
-            <Heart className="w-3 h-3 inline text-red-400" /> for the Ummah by Mohd Talha Masood, IIT Kanpur
+            © {new Date().getFullYear()} DuaVault · Made by Mohd Talha Masood, IIT Kanpur
           </p>
           <p>
             Content is carefully sourced but may contain errors. For religious
