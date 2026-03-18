@@ -1,4 +1,4 @@
-import { ShieldCheck, BookOpen, CheckCircle } from "lucide-react";
+import { ShieldCheck, BookOpen, CalendarDays } from "lucide-react";
 
 const TRUST_ITEMS = [
   {
@@ -12,9 +12,9 @@ const TRUST_ITEMS = [
     desc: "Sahih al-Bukhari · Sahih Muslim · Hisn al-Muslim · Riyad as-Salihin",
   },
   {
-    icon: CheckCircle,
-    title: "Graded Hadith",
-    desc: "Each supplication shows Sahih, Hasan, or Quranic grading",
+    icon: CalendarDays,
+    title: "A New Dua Every Day",
+    desc: "Fresh supplication each morning — make remembrance of Allah part of your daily routine",
   },
 ];
 
