@@ -36,12 +36,13 @@ export function ShareButtons({ dua }: { dua: Dua }) {
   function shareWhatsApp() {
     const whatsappText = encodeURIComponent(`${text}\n\n${url}`);
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    // Deep link opens native app on mobile; web URL used on desktop
-    const waUrl = isMobile
-      ? `whatsapp://send?text=${whatsappText}`
-      : `https://api.whatsapp.com/send?text=${whatsappText}`;
-    window.open(waUrl, "_blank", "noopener");
     trackShareDua("whatsapp", dua.slug);
+    if (isMobile) {
+      // window.open is blocked by Safari/Chrome for custom schemes — use location.href
+      window.location.href = `whatsapp://send?text=${whatsappText}`;
+    } else {
+      window.open(`https://web.whatsapp.com/send?text=${whatsappText}`, "_blank", "noopener");
+    }
   }
 
   function shareTelegram() {
