@@ -35,7 +35,12 @@ export function ShareButtons({ dua }: { dua: Dua }) {
 
   function shareWhatsApp() {
     const whatsappText = encodeURIComponent(`${text}\n\n${url}`);
-    window.open(`https://api.whatsapp.com/send?text=${whatsappText}`, "_blank", "noopener");
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    // Deep link opens native app on mobile; web URL used on desktop
+    const waUrl = isMobile
+      ? `whatsapp://send?text=${whatsappText}`
+      : `https://api.whatsapp.com/send?text=${whatsappText}`;
+    window.open(waUrl, "_blank", "noopener");
     trackShareDua("whatsapp", dua.slug);
   }
 
