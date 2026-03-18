@@ -112,7 +112,7 @@ export default function RootLayout({
           <Navbar />
           {/* pb-bottom-nav clears the bottom tab bar + iOS/Android safe area inset */}
           <main className="flex-1 pb-bottom-nav md:pb-0">{children}</main>
-          <div className="hidden md:block"><Footer /></div>
+          <Footer />
           <Toaster
             position="bottom-center"
             // Offset above the bottom nav (64px) + any safe-area on notched devices
