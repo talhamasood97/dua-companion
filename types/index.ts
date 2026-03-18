@@ -31,10 +31,10 @@ export interface Dua {
   source_book: string;
   hadith_number?: string;
   authenticity_grade: AuthenticityGrade;
+  graded_by?: string;
   category: Category;
   emotion_tags: Emotion[];
   situation_tags: string[];
-  scholar_verified: boolean;
   featured: boolean;
   daily_dua_eligible: boolean;
   created_at?: string;

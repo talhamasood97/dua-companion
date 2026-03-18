@@ -167,9 +167,9 @@ export default async function DuaPage({ params }: Props) {
                   </>
                 )}
               </div>
-              {dua.scholar_verified && (
+              {dua.graded_by && (
                 <span className="text-emerald-700 dark:text-emerald-400 font-medium flex items-center gap-1">
-                  ✓ Scholar Verified
+                  ✓ Graded by {dua.graded_by}
                 </span>
               )}
             </div>
