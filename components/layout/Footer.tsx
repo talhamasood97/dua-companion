@@ -85,12 +85,15 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Bismillah divider */}
-        <div className="ornament mb-8">
+        {/* Closing dua divider */}
+        <div className="ornament mb-3">
           <span className="arabic text-2xl text-emerald-600 dark:text-emerald-500 leading-loose px-4">
-            بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+            رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ
           </span>
         </div>
+        <p className="text-center text-xs text-stone-400 dark:text-stone-500 italic mb-8">
+          "Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire." — Quran 2:201
+        </p>
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400 dark:text-stone-600">
