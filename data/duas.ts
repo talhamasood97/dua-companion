@@ -2839,6 +2839,312 @@ export const DUAS: Dua[] = [
     featured: true,
     daily_dua_eligible: false,
   },
+
+  // ─── EID & SPECIAL OCCASIONS ─────────────────────────────────────────────────
+  {
+    id: 151,
+    slug: "eid-takbeer",
+    title: "Eid Takbeer – Allahu Akbar Allahu Akbar",
+    arabic_text:
+      "اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ",
+    transliteration:
+      "Allahu Akbar, Allahu Akbar, La ilaha illallah, Wallahu Akbar, Allahu Akbar, Wa lillahil hamd",
+    translation:
+      "Allah is the Greatest, Allah is the Greatest. There is no deity worthy of worship except Allah. Allah is the Greatest, Allah is the Greatest, and to Allah belongs all praise.",
+    source_book: "Musannaf Ibn Abi Shaybah",
+    hadith_number: "2/166",
+    authenticity_grade: "SAHIH",
+    graded_by: "Al-Albani",
+    category: "worship",
+    emotion_tags: ["grateful", "hopeful"],
+    situation_tags: ["eid", "eid-al-fitr", "eid-al-adha", "takbeer", "eid-prayer", "celebration", "morning"],
+    featured: true,
+    daily_dua_eligible: false,
+  },
+  {
+    id: 152,
+    slug: "eid-greeting-taqabbalallahu",
+    title: "Eid Greeting – Taqabbalallahu Minna wa Minkum",
+    arabic_text:
+      "تَقَبَّلَ اللَّهُ مِنَّا وَمِنْكُمْ",
+    transliteration:
+      "Taqabbalallahu minna wa minkum",
+    translation:
+      "May Allah accept (good deeds) from us and from you.",
+    source_book: "Fath al-Bari",
+    hadith_number: "2/446",
+    authenticity_grade: "HASAN",
+    graded_by: "Al-Albani",
+    category: "worship",
+    emotion_tags: ["grateful", "hopeful"],
+    situation_tags: ["eid", "eid-al-fitr", "eid-al-adha", "greeting", "eid-mubarak", "celebration", "ramadan"],
+    featured: true,
+    daily_dua_eligible: false,
+  },
+  {
+    id: 153,
+    slug: "dua-sighting-ramadan-crescent-chand-raat",
+    title: "Dua for Sighting the Ramadan Crescent (Chand Raat)",
+    arabic_text:
+      "اللَّهُمَّ أَهِلَّهُ عَلَيْنَا بِالْيُمْنِ وَالْإِيمَانِ وَالسَّلَامَةِ وَالْإِسْلَامِ رَبِّي وَرَبُّكَ اللَّهُ",
+    transliteration:
+      "Allahumma ahillahu alayna bil-yumni wal-iman, was-salamati wal-Islam, Rabbi wa Rabbuk Allah",
+    translation:
+      "O Allah, bring this crescent upon us with blessing, faith, safety and Islam. My Lord and your Lord is Allah.",
+    source_book: "Sunan al-Tirmidhi",
+    hadith_number: "3451",
+    authenticity_grade: "HASAN",
+    graded_by: "Al-Albani",
+    category: "worship",
+    emotion_tags: ["grateful", "hopeful"],
+    situation_tags: ["chand-raat", "ramadan", "crescent-moon", "moon-sighting", "eid", "new-moon", "eid-al-fitr"],
+    featured: true,
+    daily_dua_eligible: false,
+  },
+
+  // ─── PRAYER & WORSHIP ────────────────────────────────────────────────────────
+  {
+    id: 154,
+    slug: "kaffaratul-majlis-end-of-gathering",
+    title: "Kaffaratul Majlis – Dua at the End of a Gathering",
+    arabic_text:
+      "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ",
+    transliteration:
+      "Subhanaka Allahumma wa bihamdika, ashhadu alla ilaha illa anta, astaghfiruka wa atubu ilayk",
+    translation:
+      "Glory is to You, O Allah, and praise. I bear witness that there is none worthy of worship but You. I seek Your forgiveness and repent to You.",
+    source_book: "Sunan al-Tirmidhi",
+    hadith_number: "3433",
+    authenticity_grade: "SAHIH",
+    graded_by: "Al-Albani",
+    category: "daily-life",
+    emotion_tags: ["seeking-forgiveness", "grateful"],
+    situation_tags: ["gathering", "meeting", "end-of-meeting", "kaffaratul-majlis", "expiation", "majlis", "class", "halaqah"],
+    featured: true,
+    daily_dua_eligible: true,
+  },
+  {
+    id: 155,
+    slug: "talbiyah-hajj-umrah",
+    title: "Talbiyah – The Call of Hajj and Umrah",
+    arabic_text:
+      "لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ لَا شَرِيكَ لَكَ",
+    transliteration:
+      "Labbayk Allahumma labbayk, labbayk la sharika laka labbayk, innal-hamda wan-ni'mata laka wal-mulk, la sharika lak",
+    translation:
+      "Here I am, O Allah, here I am. Here I am, You have no partner, here I am. Verily all praise, grace and sovereignty belong to You. You have no partner.",
+    source_book: "Sahih al-Bukhari",
+    hadith_number: "1549",
+    authenticity_grade: "SAHIH",
+    category: "worship",
+    emotion_tags: ["grateful", "hopeful"],
+    situation_tags: ["hajj", "umrah", "ihram", "talbiyah", "labbayk", "pilgrimage", "makkah"],
+    featured: true,
+    daily_dua_eligible: false,
+  },
+  {
+    id: 156,
+    slug: "dua-between-two-sajdahs",
+    title: "Dua Between the Two Sajdahs (Prostrations)",
+    arabic_text:
+      "رَبِّ اغْفِرْ لِي رَبِّ اغْفِرْ لِي",
+    transliteration:
+      "Rabbighfir li, Rabbighfir li",
+    translation:
+      "My Lord, forgive me. My Lord, forgive me.",
+    source_book: "Sunan Abu Dawud",
+    hadith_number: "874",
+    authenticity_grade: "SAHIH",
+    graded_by: "Al-Albani",
+    category: "worship",
+    emotion_tags: ["seeking-forgiveness", "hopeful"],
+    situation_tags: ["salah", "prayer", "sajdah", "prostration", "sujood", "forgiveness", "between-sajdahs"],
+    featured: false,
+    daily_dua_eligible: true,
+  },
+  {
+    id: 157,
+    slug: "dua-protection-grave-fire-dajjal",
+    title: "Dua for Protection from the Grave, Fire, and Dajjal",
+    arabic_text:
+      "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ وَمِنْ عَذَابِ النَّارِ وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ",
+    transliteration:
+      "Allahumma inni a'udhu bika min 'adhabil-qabri, wa min 'adhabin-nar, wa min fitnatil-mahya wal-mamat, wa min sharri fitnatil-masihid-Dajjal",
+    translation:
+      "O Allah, I seek refuge in You from the punishment of the grave, the punishment of the Fire, the trials of life and death, and from the evil of the trial of the False Messiah (Dajjal).",
+    source_book: "Sahih al-Bukhari",
+    hadith_number: "1377",
+    authenticity_grade: "SAHIH",
+    category: "protection",
+    emotion_tags: ["afraid", "hopeful"],
+    situation_tags: ["dajjal", "grave", "hellfire", "tashahud", "salah", "prayer", "protection", "death", "end-times"],
+    featured: true,
+    daily_dua_eligible: true,
+  },
+
+  // ─── DEATH & BEREAVEMENT ─────────────────────────────────────────────────────
+  {
+    id: 158,
+    slug: "dua-closing-eyes-of-deceased",
+    title: "Dua When Closing the Eyes of the Deceased",
+    arabic_text:
+      "اللَّهُمَّ اغْفِرْ لَهُ وَارْفَعْ دَرَجَتَهُ فِي الْمَهْدِيِّينَ وَاخْلُفْهُ فِي عَقِبِهِ فِي الْغَابِرِينَ وَاغْفِرْ لَنَا وَلَهُ يَا رَبَّ الْعَالَمِينَ وَأَفْسِحْ لَهُ فِي قَبْرِهِ وَنَوِّرْ لَهُ فِيهِ",
+    transliteration:
+      "Allahummaghfir lahu warfa' darajatahu fil-mahdiyyeen, wakhlufhu fi 'aqibihi fil-ghaabireen, waghfir lana wa lahu ya Rabbal-'alameen, wafshah lahu fi qabrihi wa nawwir lahu feeh",
+    translation:
+      "O Allah, forgive him and elevate his station among the guided. Grant him a successor among those he leaves behind. Forgive us and him, O Lord of the worlds. Expand his grave for him and illuminate it.",
+    source_book: "Sahih Muslim",
+    hadith_number: "920",
+    authenticity_grade: "SAHIH",
+    category: "family",
+    emotion_tags: ["sad", "hopeful"],
+    situation_tags: ["death", "deceased", "dying", "inna-lillahi", "closing-eyes", "janazah", "loss", "grief"],
+    featured: false,
+    daily_dua_eligible: false,
+  },
+
+  // ─── FOOD & HOSPITALITY ──────────────────────────────────────────────────────
+  {
+    id: 159,
+    slug: "dua-for-iftar-host",
+    title: "Dua for the Host Who Provides Iftar",
+    arabic_text:
+      "أَفْطَرَ عِنْدَكُمُ الصَّائِمُونَ وَأَكَلَ طَعَامَكُمُ الْأَبْرَارُ وَصَلَّتْ عَلَيْكُمُ الْمَلَائِكَةُ",
+    transliteration:
+      "Aftara 'indakumus-sa'imun, wa akala ta'amakumul-abrar, wa sallat 'alaykumul-mala'ikah",
+    translation:
+      "May those who are fasting break their fast with you, may the righteous eat from your food, and may the angels send their prayers upon you.",
+    source_book: "Sunan Abu Dawud",
+    hadith_number: "3854",
+    authenticity_grade: "SAHIH",
+    graded_by: "Al-Albani",
+    category: "daily-life",
+    emotion_tags: ["grateful"],
+    situation_tags: ["iftar", "host", "ramadan", "food", "hospitality", "breaking-fast", "eid"],
+    featured: false,
+    daily_dua_eligible: false,
+  },
+  {
+    id: 160,
+    slug: "dua-when-eating-at-someone-home",
+    title: "Dua When Eating at Someone's Home",
+    arabic_text:
+      "اللَّهُمَّ أَطْعِمْ مَنْ أَطْعَمَنِي وَاسْقِ مَنْ سَقَانِي",
+    transliteration:
+      "Allahumma at'im man at'amani wasqi man saqani",
+    translation:
+      "O Allah, feed the one who has fed me and give drink to the one who has given me drink.",
+    source_book: "Sahih Muslim",
+    hadith_number: "2055",
+    authenticity_grade: "SAHIH",
+    category: "daily-life",
+    emotion_tags: ["grateful"],
+    situation_tags: ["food", "eating", "host", "guest", "hospitality", "meal", "drink"],
+    featured: false,
+    daily_dua_eligible: true,
+  },
+
+  // ─── HAJJ & UMRAH ────────────────────────────────────────────────────────────
+  {
+    id: 161,
+    slug: "dua-at-mount-safa-hajj-umrah",
+    title: "Dua at Mount Safa During Hajj and Umrah",
+    arabic_text:
+      "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ أَنْجَزَ وَعْدَهُ وَنَصَرَ عَبْدَهُ وَهَزَمَ الْأَحْزَابَ وَحْدَهُ",
+    transliteration:
+      "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir. La ilaha illallahu wahdah, anjaza wa'dahu, wa nasara 'abdahu, wa hazamal-ahzaba wahdah",
+    translation:
+      "There is no deity worthy of worship except Allah alone, without partner. To Him belongs all sovereignty and praise, and He is over all things capable. There is no deity worthy of worship except Allah alone — He fulfilled His promise, supported His servant, and defeated the confederates alone.",
+    source_book: "Sahih Muslim",
+    hadith_number: "1218",
+    authenticity_grade: "SAHIH",
+    category: "worship",
+    emotion_tags: ["grateful", "hopeful"],
+    situation_tags: ["hajj", "umrah", "safa", "marwa", "sa'ee", "pilgrimage", "makkah"],
+    featured: false,
+    daily_dua_eligible: false,
+  },
+  {
+    id: 162,
+    slug: "dua-at-qurbani-slaughter",
+    title: "Dua at the Time of Qurbani (Eid al-Adha Sacrifice)",
+    arabic_text:
+      "بِسْمِ اللَّهِ وَاللَّهُ أَكْبَرُ اللَّهُمَّ هَذَا مِنْكَ وَلَكَ اللَّهُمَّ تَقَبَّلْ مِنِّي",
+    transliteration:
+      "Bismillahi wallahu Akbar, Allahumma hadha minka wa lak, Allahumma taqabbal minni",
+    translation:
+      "In the name of Allah, and Allah is the Greatest. O Allah, this is from You and for You. O Allah, accept this from me.",
+    source_book: "Sunan Abu Dawud",
+    hadith_number: "2795",
+    authenticity_grade: "SAHIH",
+    graded_by: "Al-Albani",
+    category: "worship",
+    emotion_tags: ["grateful", "hopeful"],
+    situation_tags: ["qurbani", "sacrifice", "eid-al-adha", "slaughter", "dhul-hijjah", "eid", "animal-sacrifice"],
+    featured: true,
+    daily_dua_eligible: false,
+  },
+
+  // ─── SOCIAL & RELATIONSHIPS ──────────────────────────────────────────────────
+  {
+    id: 163,
+    slug: "dua-when-saying-farewell",
+    title: "Dua When Saying Farewell or Goodbye",
+    arabic_text:
+      "أَسْتَوْدِعُكَ اللَّهَ الَّذِي لَا تَضِيعُ وَدَائِعُهُ",
+    transliteration:
+      "Astawdi'ukallaha alladhi la tadi'u wada'i'uh",
+    translation:
+      "I entrust you to Allah, Whose trusts are never lost.",
+    source_book: "Sunan al-Tirmidhi",
+    hadith_number: "3443",
+    authenticity_grade: "HASAN",
+    graded_by: "Al-Albani",
+    category: "travel",
+    emotion_tags: ["sad", "hopeful", "lonely"],
+    situation_tags: ["farewell", "goodbye", "travel", "separation", "leaving", "parting"],
+    featured: false,
+    daily_dua_eligible: true,
+  },
+  {
+    id: 164,
+    slug: "dua-masha-allah-la-quwwata-illa-billah",
+    title: "Masha Allah – La Quwwata Illa Billah",
+    arabic_text:
+      "مَا شَاءَ اللَّهُ لَا قُوَّةَ إِلَّا بِاللَّهِ",
+    transliteration:
+      "Ma sha'Allahu la quwwata illa billah",
+    translation:
+      "What Allah wills — there is no power except with Allah.",
+    source_book: "Quran",
+    hadith_number: "18:39",
+    authenticity_grade: "QURAN",
+    category: "daily-life",
+    emotion_tags: ["grateful", "hopeful"],
+    situation_tags: ["masha-allah", "gratitude", "evil-eye", "blessing", "appreciation", "protection", "daily"],
+    featured: false,
+    daily_dua_eligible: true,
+  },
+  {
+    id: 165,
+    slug: "dua-to-say-to-newlyweds",
+    title: "Dua to Say to a Couple at Their Wedding (Nikah)",
+    arabic_text:
+      "بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
+    transliteration:
+      "Baraka Allahu laka wa baraka 'alayka wa jama'a baynakuma fi khayr",
+    translation:
+      "May Allah bless you, and shower His blessings upon you, and join you both together in goodness.",
+    source_book: "Sunan Abu Dawud",
+    hadith_number: "2130",
+    authenticity_grade: "SAHIH",
+    graded_by: "Al-Albani",
+    category: "family",
+    emotion_tags: ["grateful", "hopeful"],
+    situation_tags: ["wedding", "nikah", "marriage", "congratulations", "newlyweds", "eid", "celebration"],
+    featured: false,
+    daily_dua_eligible: false,
+  },
 ];
 
 export const FEATURED_DUAS = DUAS.filter((d) => d.featured);
